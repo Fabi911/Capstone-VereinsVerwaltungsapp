@@ -24,7 +24,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: frontend-build
-          path: frontend/.next/
+          path: frontend/dist/
 
   build-backend:
     runs-on: ubuntu-latest
@@ -36,12 +36,6 @@ jobs:
         with:
           name: frontend-build
           path: backend/src/main/resources/static
-
-      - name: Move static files to resources/static
-        run: |
-                mkdir -p backend/src/main/resources/static
-                mv backend/src/main/resources/next/.next/static/* backend/src/main/resources/static/
-                mv backend/src/main/resources/next/.next/_next/* backend/src/main/resources/static/_next/
 
       - name: Set up JDK
         uses: actions/setup-java@v4
