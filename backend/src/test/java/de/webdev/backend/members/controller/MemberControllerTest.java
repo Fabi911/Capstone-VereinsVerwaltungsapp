@@ -26,4 +26,40 @@ class MemberControllerTest {
                 .andExpect(MockMvcResultMatchers.content().json("[]"));
     }
 
+    @DirtiesContext
+    @Test
+    void addMember_shouldReturnMember_whenAddMember() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/members")
+                .contentType("application/json")
+                .content("""
+ {
+         "memberId": "2024-002",
+         "lastName": "Muster",
+         "name": "Fabian",
+         "birthday": "1988-02-16",
+         "adress": {
+             "street": "Musterstraße 4",
+             "postcode": 12345,
+             "city": "Musterstadt"
+         }
+  }
+"""
+                ))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+
+                        {
+        "memberId": "2024-002",
+        "lastName": "Muster",
+        "name": "Fabian",
+        "birthday": "1988-02-16",
+        "adress": {
+            "street": "Musterstraße 4",
+            "postcode": 12345,
+            "city": "Musterstadt"
+        }
+        }
+        """));
+ }
+
 }
