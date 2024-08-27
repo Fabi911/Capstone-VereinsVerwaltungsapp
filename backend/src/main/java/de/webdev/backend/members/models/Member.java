@@ -2,13 +2,16 @@ package de.webdev.backend.members.models;
 
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
+import java.time.LocalDate;
+
+
 
 public record Member(
         @MongoId
-        String id,
+        String memberId,
         String lastName,
         String name,
-        int birthday,
+        LocalDate birthday,
         Adress adress
 ) {
 
