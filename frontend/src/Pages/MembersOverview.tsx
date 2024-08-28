@@ -5,16 +5,16 @@ export default function MembersOverview({members}: {members: Member[]}) {
     console.log(members);
     return (
         <div>
-            <h1>Members</h1>
+            <h1>Mitglieder</h1>
             <Table>
                 <thead>
                     <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Address</th>
-                        <th>Birth Date</th>
+                        <th>Vorname</th>
+                        <th>Nachname</th>
+                        <th>E-Mail</th>
+                        <th>Telefon</th>
+                        <th>Adresse</th>
+                        <th>Geburtstag</th>
                     </tr>
                 </thead>
                 <tbody>
