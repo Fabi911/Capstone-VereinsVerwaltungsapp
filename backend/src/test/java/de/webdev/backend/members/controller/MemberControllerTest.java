@@ -39,7 +39,7 @@ class MemberControllerTest {
          "birthday": "1988-02-16",
          "address": {
              "street": "Musterstraße 4",
-             "zip": 12345,
+             "zip": "12345",
              "city": "Musterstadt"
          },
             "email": "test@tester.com",
@@ -57,7 +57,7 @@ class MemberControllerTest {
         "birthday": "1988-02-16",
         "address": {
             "street": "Musterstraße 4",
-            "zip": 12345,
+            "zip": "12345",
             "city": "Musterstadt"
         },
             "email": "test@tester.com",
