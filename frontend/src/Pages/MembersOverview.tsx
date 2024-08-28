@@ -20,12 +20,12 @@ export default function MembersOverview() {
 
     useEffect(() => {
         fetchMembers();
-    }, [modal]);
+    }, [membersDB]);
     return (
         <div>
             <h1>Mitglieder</h1>
              <button onClick={() => setModal(true)}>Mitglied hinzufügen</button>
-            {modal &&<Modal setModal={setModal}><AddMember setModal={setModal}/></Modal>}
+            {modal &&<Modal setModal={setModal}><AddMember setModal={setModal} /></Modal>}
             <Table>
                 <thead>
                     <tr>
