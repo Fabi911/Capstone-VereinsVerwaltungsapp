@@ -1,8 +1,8 @@
 package de.webdev.backend.members.models;
 
-public record Adress(
+public record Address(
         String street,
-        int postcode,
+        int zip,
         String city
 ) {
 }

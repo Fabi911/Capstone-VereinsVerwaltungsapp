@@ -37,11 +37,13 @@ class MemberControllerTest {
          "lastName": "Muster",
          "name": "Fabian",
          "birthday": "1988-02-16",
-         "adress": {
+         "address": {
              "street": "Musterstraße 4",
-             "postcode": 12345,
+             "zip": 12345,
              "city": "Musterstadt"
-         }
+         },
+            "email": "test@tester.com",
+            "phoneNumber": "123456789"
   }
 """
                 ))
@@ -53,11 +55,13 @@ class MemberControllerTest {
         "lastName": "Muster",
         "name": "Fabian",
         "birthday": "1988-02-16",
-        "adress": {
+        "address": {
             "street": "Musterstraße 4",
-            "postcode": 12345,
+            "zip": 12345,
             "city": "Musterstadt"
-        }
+        },
+            "email": "test@tester.com",
+            "phoneNumber": "123456789"
         }
         """));
  }

@@ -1,14 +1,15 @@
 import {Link} from "react-router-dom";
+import styled from "styled-components";
 
 export default function Header() {
     return (
         <StyledHeader>
-           <Link to={"/"}><h1>My App</h1></Link>
+           <StyledLink to={"/"}><h1>Vereinsverwaltung</h1></StyledLink>
         </StyledHeader>
     );
 }
 
-import styled from "styled-components";
+// Styles
 
 const StyledHeader = styled.header`
     background-color: #333;
@@ -21,4 +22,9 @@ const StyledHeader = styled.header`
     left: 0;
     z-index: 100;
     box-shadow: 1rem 2rem 1rem rgba(0, 0, 0, 0.2);
+`;
+
+const StyledLink = styled(Link)`
+    color: white;
+    text-decoration: none;
 `;

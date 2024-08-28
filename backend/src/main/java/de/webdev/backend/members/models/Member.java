@@ -12,7 +12,9 @@ public record Member(
         String lastName,
         String name,
         LocalDate birthday,
-        Adress adress
+        Address address,
+        String email,
+        String phoneNumber
 ) {
 
 }

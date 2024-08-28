@@ -1,6 +1,6 @@
 package de.webdev.backend.members.service;
 
-import de.webdev.backend.members.models.Adress;
+import de.webdev.backend.members.models.Address;
 import de.webdev.backend.members.models.Member;
 import de.webdev.backend.members.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
@@ -34,8 +34,8 @@ class MemberServiceTest {
     void testGetAllMembers_whenMembersExist() {
         // given
         List<Member> members = List.of(
-                new Member("2024-001", "John", "Doe", LocalDate.parse("1990-02-01"), new Adress("Main Street 1", 12345, "Springfield")),
-                new Member("2024-002", "Jane", "Doe", LocalDate.parse("1990-02-01"), new Adress("Main Street 1", 12345, "Springfield")));
+                new Member("2024-001", "John", "Doe", LocalDate.parse("1990-02-01"), new Address("Main Street 1", 12345, "Springfield"),"test@tester.com","123456789"),
+                new Member("2024-002", "Jane", "Doe", LocalDate.parse("1990-02-01"), new Address("Main Street 1", 12345, "Springfield"),"test@tester.com","123456789"));
         when(memberRepository.findAll()).thenReturn(members);
 
         // when
@@ -50,7 +50,7 @@ class MemberServiceTest {
     @Test
     void addMemberTest() {
         // given
-        Member member = new Member("2024-001", "John", "Doe", LocalDate.parse("1990-02-01"), new Adress("Main Street 1", 12345, "Springfield"));
+        Member member = new Member("2024-001", "John", "Doe", LocalDate.parse("1990-02-01"), new Address("Main Street 1", 12345, "Springfield"),"test@tester.com","123456789");
         when(memberRepository.save(member)).thenReturn(member);
 
         // when
