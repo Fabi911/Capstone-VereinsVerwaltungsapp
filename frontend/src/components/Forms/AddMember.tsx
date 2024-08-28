@@ -1,18 +1,19 @@
 import styled from "styled-components";
 import axios from "axios";
+import {Member} from "../../types/member.ts";
 
 export default function AddMember({setModal} : {setModal: (value: boolean) => void}) {
     const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = event.currentTarget;
         const formData = new FormData(form);
-        const data = Object.fromEntries(formData);
+        const data = Object.fromEntries(formData) as unknown as Member;
         postMember(data);
         console.log(data);
         form.reset();
         setModal(false);
     }
-    const postMember = (data: any) => {
+    const postMember = (data:Member):void =>{
         axios.post('api/members', {
             memberId: data.memberId,
             name: data.name,
@@ -20,14 +21,14 @@ export default function AddMember({setModal} : {setModal: (value: boolean) => vo
             email: data.email,
             phoneNumber: data.phoneNumber,
             address: {
-                street: data.street,
-                zip: data.zip,
-                city: data.city
+                street: data.address.street,
+                zip: data.address.zip,
+                city: data.address.city
             },
             birthday: data.birthday
         })}
 
-        return (
+    return (
             <div>
                 <h1>Neues Mitglied hinzufügen</h1>
                 <Form onSubmit={handleFormSubmit}>
