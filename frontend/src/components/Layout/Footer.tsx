@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 export default function Footer() {
     return (
         <StyledFooter>
@@ -6,7 +8,7 @@ export default function Footer() {
     );
 }
 
-import styled from "styled-components";
+// Styles
 
 const StyledFooter = styled.header`
     background-color: #333;
