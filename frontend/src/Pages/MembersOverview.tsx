@@ -3,10 +3,11 @@ import {useEffect, useState} from "react";
 import Modal from "../components/modual/Modal.tsx";
 import AddMember from "../components/Forms/AddMember.tsx";
 import axios from "axios";
+import {Member} from "../types/member.ts";
 
 export default function MembersOverview() {
     const [modal, setModal] = useState(false);
-    const [membersDB, setMembersDB] = useState([]);
+    const [membersDB, setMembersDB] = useState <Member[]>([]);
 
     function fetchMembers():void {
         axios.get('api/members')
