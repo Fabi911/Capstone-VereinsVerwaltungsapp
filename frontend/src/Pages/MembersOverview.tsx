@@ -1,11 +1,31 @@
-import {Member} from "../types/member.ts";
 import styled from "styled-components";
+import {useEffect, useState} from "react";
+import Modal from "../components/modual/Modal.tsx";
+import AddMember from "../components/Forms/AddMember.tsx";
+import axios from "axios";
+import {Member} from "../types/member.ts";
 
-export default function MembersOverview({members}: {members: Member[]}) {
-    console.log(members);
+export default function MembersOverview() {
+    const [modal, setModal] = useState(false);
+    const [membersDB, setMembersDB] = useState <Member[]>([]);
+
+    function fetchMembers():void {
+        axios.get('api/members')
+            .then(response => {
+                setMembersDB(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            })}
+
+    useEffect(() => {
+        fetchMembers();
+    }, [modal]);
     return (
         <div>
             <h1>Mitglieder</h1>
+             <button onClick={() => setModal(true)}>Mitglied hinzufügen</button>
+            {modal &&<Modal setModal={setModal}><AddMember setModal={setModal}/></Modal>}
             <Table>
                 <thead>
                     <tr>
@@ -15,17 +35,19 @@ export default function MembersOverview({members}: {members: Member[]}) {
                         <th>Telefon</th>
                         <th>Adresse</th>
                         <th>Geburtstag</th>
+                        <th>Mitgliedsnummer</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {members.map(member => (
+                    {membersDB.map(member  => (
                         <tr key={member.memberId}>
                             <td>{member.name}</td>
                             <td>{member.lastName}</td>
                             <td>{member.email}</td>
                             <td>{member.phoneNumber}</td>
                             <td>{member.address.street}, {member.address.zip} {member.address.city}</td>
-                            <td>{member.birthday}</td>
+                            <td>{new Date(member.birthday).toLocaleDateString()}</td>
+                            <td>{member.memberId}</td>
                         </tr>
                     ))}
                 </tbody>

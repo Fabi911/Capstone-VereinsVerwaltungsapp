@@ -7,6 +7,8 @@ export default createGlobalStyle`
         margin: 0;
         padding: 0;
         font-family: worksans, sans-serif;
+
+        --box-shadow-default: 0 0 10px rgba(0, 0, 0, 0.1);
        
     }
     
