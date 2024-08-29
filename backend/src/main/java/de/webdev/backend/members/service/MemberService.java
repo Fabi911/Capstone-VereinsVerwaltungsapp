@@ -24,4 +24,8 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
+    public Member getMemberById(String id){
+        return memberRepository.findById(id).orElse(null);
+    }
+
 }
