@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 export default function Modal({children,setModal} : { children: React.ReactNode, setModal: (value: boolean) => void }) {
     return (
         <>
@@ -18,7 +18,7 @@ const ModalBox = styled.div`
   position: fixed;
   top: 16%;
   left: 10%;
-  box-shadow: var(--box-shadow-default);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   width: 80%;
   margin-left: auto;

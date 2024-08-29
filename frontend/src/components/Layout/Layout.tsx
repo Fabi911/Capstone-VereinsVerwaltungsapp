@@ -1,7 +1,7 @@
 import Footer from "./Footer.tsx";
 import Header from "./Header.tsx";
 import {ReactNode} from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 type LayoutProps = {
     children: ReactNode;

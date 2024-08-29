@@ -4,7 +4,7 @@ import AddMember from "../components/Forms/AddMember.tsx";
 import axios from "axios";
 import {Member} from "../types/member.ts";
 import {DataGrid, GridColDef} from '@mui/x-data-grid';
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 
 export default function MembersOverview() {
@@ -42,7 +42,6 @@ export default function MembersOverview() {
         {field: 'birthday', headerName: 'Geburtstag', width: 150},
         {field: 'memberId', headerName: 'Mitgliedsnummer', width: 120},
     ];
-    console.log(membersDB);
     return (
         <div>
             <h1>Mitglieder</h1>

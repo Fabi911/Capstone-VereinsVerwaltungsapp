@@ -1,12 +1,13 @@
 import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
 import App from './App.tsx'
-import GlobalStyles from "../styles.ts"
+import {globalStyles} from "../styles.ts"
+import {Global} from "@emotion/react";
 import {BrowserRouter} from 'react-router-dom'
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <GlobalStyles/>
+        <Global styles={globalStyles}/>
         <BrowserRouter>
             <App/>
         </BrowserRouter>

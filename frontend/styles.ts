@@ -1,7 +1,7 @@
-import  {createGlobalStyle} from "styled-components";
+import  {css} from "@emotion/react";
 
 // Define global styles
-export default createGlobalStyle`
+export const globalStyles = css`
     :root {
         font-size: 62.5%;
         margin: 0;

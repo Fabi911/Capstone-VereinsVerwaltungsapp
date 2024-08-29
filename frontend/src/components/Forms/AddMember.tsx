@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import axios from "axios";
 
 export default function AddMember({setModal} : {setModal: (value: boolean) => void}) {
@@ -8,7 +8,6 @@ export default function AddMember({setModal} : {setModal: (value: boolean) => vo
         const formData = new FormData(form);
         const data = Object.fromEntries(formData);
         postMember(data);
-        console.log(data);
         form.reset();
         setModal(false);
 
