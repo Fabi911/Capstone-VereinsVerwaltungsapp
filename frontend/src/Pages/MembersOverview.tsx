@@ -1,81 +1,69 @@
-import styled from "styled-components";
 import {useEffect, useState} from "react";
 import Modal from "../components/modual/Modal.tsx";
 import AddMember from "../components/Forms/AddMember.tsx";
 import axios from "axios";
 import {Member} from "../types/member.ts";
+import {DataGrid, GridColDef} from '@mui/x-data-grid';
+import styled from "styled-components";
+
 
 export default function MembersOverview() {
     const [modal, setModal] = useState(false);
-    const [membersDB, setMembersDB] = useState <Member[]>([]);
+    const [membersDB, setMembersDB] = useState<Member[]>([]);
 
-    function fetchMembers():void {
+    function fetchMembers(): void {
         axios.get('api/members')
             .then(response => {
                 setMembersDB(response.data);
             })
             .catch(error => {
                 console.log(error);
-            })}
+            })
+    }
 
     useEffect(() => {
         fetchMembers();
-    }, [membersDB]);
+    }, [modal]);
+
+    const columns: GridColDef[] = [
+        {field: 'name', headerName: 'Vorname', width: 150},
+        {field: 'lastName', headerName: 'Nachname', width: 150},
+        {field: 'email', headerName: 'E-Mail', width: 250},
+        {field: 'phoneNumber', headerName: 'Telefon', width: 200},
+        {
+            field: 'address',
+            headerName: 'Adresse',
+            width: 350,
+            renderCell: (params: { row: Member }) => {
+                const address = params.row?.address;
+                return address ? `${address.street}, ${address.zip} ${address.city}` : 'No Address';
+            }
+        },
+        {field: 'birthday', headerName: 'Geburtstag', width: 150},
+        {field: 'memberId', headerName: 'Mitgliedsnummer', width: 120},
+    ];
+    console.log(membersDB);
     return (
         <div>
             <h1>Mitglieder</h1>
-             <button onClick={() => setModal(true)}>Mitglied hinzufügen</button>
-            {modal &&<Modal setModal={setModal}><AddMember setModal={setModal} /></Modal>}
-            <Table>
-                <thead>
-                    <tr>
-                        <th>Vorname</th>
-                        <th>Nachname</th>
-                        <th>E-Mail</th>
-                        <th>Telefon</th>
-                        <th>Adresse</th>
-                        <th>Geburtstag</th>
-                        <th>Mitgliedsnummer</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {membersDB.map(member  => (
-                        <tr key={member.memberId}>
-                            <td>{member.name}</td>
-                            <td>{member.lastName}</td>
-                            <td>{member.email}</td>
-                            <td>{member.phoneNumber}</td>
-                            <td>{member.address.street}, {member.address.zip} {member.address.city}</td>
-                            <td>{new Date(member.birthday).toLocaleDateString()}</td>
-                            <td>{member.memberId}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
+            <button onClick={() => setModal(true)}>Mitglied hinzufügen</button>
+            {modal && <Modal setModal={setModal}><AddMember setModal={setModal}/></Modal>}
+
+            <SyledDataGrid rows={membersDB} columns={columns} getRowId={(row) => row.memberId} initialState={{
+                pagination: {
+                    paginationModel: {
+                        pageSize: 10,
+                    },
+                },
+            }}
+                           sx={{fontSize: '1.4rem'}}/>
         </div>
     );
 }
 
 // Styles
 
-const Table = styled.table`
+const SyledDataGrid = styled(DataGrid)`
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    th {
-        background-color: #f2f2f2;
-        border: 1px solid #dddddd;
-        padding: 8px;
-        text-align: left;
-    }
-    td {
-        border: 1px solid #dddddd;
-        padding: 8px;
-    }
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-    tr:hover {
-        background-color: #f2f2f2;
-    }
-`
+    margin-top: 2rem;
+`;
