@@ -48,7 +48,10 @@ export default function MembersOverview() {
             }
         },
         {
-            field: 'birthday', headerName: 'Geburtstag', width: 150, renderCell: (params: GridRenderCellParams) => new Date(params.row.birthday).toLocaleDateString()
+            field: 'birthday',
+            headerName: 'Geburtstag',
+            width: 150,
+            renderCell: (params: GridRenderCellParams) => new Date(params.row.birthday).toLocaleDateString()
         },
         {field: 'memberId', headerName: 'Mitgliedsnummer', width: 120},
     ];

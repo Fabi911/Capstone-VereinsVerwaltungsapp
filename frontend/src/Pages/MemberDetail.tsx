@@ -7,7 +7,7 @@ export default function MemberDetail() {
     const {id} = useParams();
     const [memberData, setMemberData] = useState<Member>();
 
-    async function getMember()  {
+    async function getMember(): Promise<void> {
         try {
             const response = await axios.get(`/api/members/${id}`)
             setMemberData(response.data);
@@ -18,7 +18,7 @@ export default function MemberDetail() {
     }
 
     useEffect(() => {
-        getMember();
+        getMember().then(() => console.log('Member fetched'));
     }, [id]);
 
     if (!memberData) {
