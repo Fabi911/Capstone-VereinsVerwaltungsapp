@@ -23,7 +23,7 @@ export default function MembersOverview() {
 
     useEffect(() => {
         fetchMembers();
-    }, []);
+    }, [modal]);
 
     const columns: GridColDef[] = [
         {field: 'name', headerName: 'Vorname', width: 150},
@@ -52,7 +52,7 @@ export default function MembersOverview() {
             <SyledDataGrid rows={membersDB} columns={columns} getRowId={(row) => row.memberId} initialState={{
                 pagination: {
                     paginationModel: {
-                        pageSize: 20,
+                        pageSize: 10,
                     },
                 },
             }}
