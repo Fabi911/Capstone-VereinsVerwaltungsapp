@@ -3,8 +3,9 @@ import Modal from "../components/modual/Modal.tsx";
 import AddMember from "../components/Forms/AddMember.tsx";
 import axios from "axios";
 import {Member} from "../types/member.ts";
-import {DataGrid, GridColDef} from '@mui/x-data-grid';
+import {DataGrid, GridColDef, GridRenderCellParams} from '@mui/x-data-grid';
 import styled from "@emotion/styled";
+import {Link} from "react-router-dom";
 
 
 export default function MembersOverview() {
@@ -26,6 +27,13 @@ export default function MembersOverview() {
     }, [modal]);
 
     const columns: GridColDef[] = [
+        {
+            field: 'link', headerName: 'Details', width: 100, renderCell: (params: GridRenderCellParams) => (
+                <Link to={`/members/${params.row.memberId}`} className={"noDecoration"}>
+                    Details
+                </Link>
+            )
+        },
         {field: 'name', headerName: 'Vorname', width: 150},
         {field: 'lastName', headerName: 'Nachname', width: 150},
         {field: 'email', headerName: 'E-Mail', width: 250},
@@ -39,7 +47,12 @@ export default function MembersOverview() {
                 return address ? `${address.street}, ${address.zip} ${address.city}` : 'No Address';
             }
         },
-        {field: 'birthday', headerName: 'Geburtstag', width: 150},
+        {
+            field: 'birthday',
+            headerName: 'Geburtstag',
+            width: 150,
+            renderCell: (params: GridRenderCellParams) => new Date(params.row.birthday).toLocaleDateString()
+        },
         {field: 'memberId', headerName: 'Mitgliedsnummer', width: 120},
     ];
     return (
@@ -63,6 +76,7 @@ export default function MembersOverview() {
 // Styles
 
 const SyledDataGrid = styled(DataGrid)`
-    width: 100%;
+    width: 90vw;
     margin-top: 2rem;
 `;
+

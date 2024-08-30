@@ -1,7 +1,6 @@
 import Footer from "./Footer.tsx";
 import Header from "./Header.tsx";
 import {ReactNode} from "react";
-import styled from "@emotion/styled";
 
 type LayoutProps = {
     children: ReactNode;
@@ -11,16 +10,11 @@ export default function Layout({children}: LayoutProps) {
     return (
         <>
             <Header/>
-            <Main>
+            <main>
                 {children}
-            </Main>
+            </main>
             <Footer/>
         </>
     );
 }
 
-const Main = styled.main`
-    margin: 13rem;
-    
-   
-`;

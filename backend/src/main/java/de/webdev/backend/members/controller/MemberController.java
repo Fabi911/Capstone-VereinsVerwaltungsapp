@@ -25,4 +25,9 @@ public class MemberController {
     public Member addMember(@RequestBody Member member) {
         return memberService.addMember(member);
     }
+
+    @GetMapping("{id}")
+    public Member getMemberById(@PathVariable String id){
+        return memberService.getMemberById(id);
+    }
 }

@@ -17,11 +17,12 @@ const StyledHeader = styled.header`
     padding: 1rem;
     text-align: center;
     width: 100%;
-    position: fixed;
+    position:absolute;
     top: 0;
     left: 0;
     z-index: 100;
     box-shadow: 1rem 2rem 1rem rgba(0, 0, 0, 0.2);
+    margin: 0;
 `;
 
 const StyledLink = styled(Link)`
