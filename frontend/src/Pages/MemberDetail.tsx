@@ -42,8 +42,9 @@ export default function MemberDetail() {
                 <span>Tel: {phoneNumber}</span>
                 <span>E-Mail: {email}</span>
                 <span>Geburtstag: {new Date(birthday).toLocaleDateString()}</span>
-<EditButton onClick={() => setModal(true)}><EditNoteIcon fontSize="large"/> </EditButton>
-                {modal && <Modal setModal={setModal}><EditMember member={memberData} setModal={setModal} getMember={getMember}/></Modal>}
+                <EditButton onClick={() => setModal(true)}><EditNoteIcon fontSize="large"/> </EditButton>
+                {modal && <Modal setModal={setModal}><EditMember member={memberData} setModal={setModal}
+                                                                 getMember={getMember}/></Modal>}
             </MemberBox>
         </DetailsBox>
     );
@@ -73,5 +74,5 @@ const MemberBox = styled.div`
 `;
 
 const EditButton = styled.button`
-align-self: flex-start;
+    align-self: flex-start;
 `
