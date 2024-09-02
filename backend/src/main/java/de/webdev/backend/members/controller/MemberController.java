@@ -30,4 +30,9 @@ public class MemberController {
     public Member getMemberById(@PathVariable String id){
         return memberService.getMemberById(id);
     }
+
+    @PutMapping("{id}")
+    public Member updateMember(@RequestBody Member member, @PathVariable String id){
+        return memberService.updateMember(member,id);
+    }
 }

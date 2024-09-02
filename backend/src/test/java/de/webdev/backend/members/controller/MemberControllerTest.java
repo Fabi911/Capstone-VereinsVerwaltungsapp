@@ -105,4 +105,58 @@ class MemberControllerTest {
                         """));
 
     }
+    @DirtiesContext
+    @Test
+    void updateMember_shouldReturnUpdatedMember_whenUpdateMember() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/members")
+                        .contentType("application/json")
+                        .content("""
+                                 {
+                                         "memberId": "2024-002",
+                                         "lastName": "Muster",
+                                         "name": "Fabian",
+                                         "birthday": "1988-02-16",
+                                         "address": {
+                                             "street": "Musterstraße 4",
+                                             "zip": "12345",
+                                             "city": "Musterstadt"
+                                         },
+                                         "email": "test@tester.com",
+                                         "phoneNumber": "123456789"
+                                      }
+                                 """));
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/members/2024-002")
+                        .contentType("application/json")
+                        .content("""
+                                 {
+                                         "memberId": "2024-002",
+                                         "lastName": "Mustermann",
+                                         "name": "Erika",
+                                         "birthday": "1985-03-12",
+                                         "address": {
+                                             "street": "Musterstraße 5",
+                                             "zip": "12346",
+                                             "city": "Musterstadt"
+                                         },
+                                         "email": "test2@tester.com",
+                                         "phoneNumber": "987654321"
+                                      }
+                                 """))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                "memberId": "2024-002",
+                                "lastName": "Mustermann",
+                                "name": "Erika",
+                                "birthday": "1985-03-12",
+                                "address": {
+                                    "street": "Musterstraße 5",
+                                    "zip": "12346",
+                                    "city": "Musterstadt"
+                                },
+                                "email": "test2@tester.com",
+                                "phoneNumber": "987654321"
+                            }
+                        """));
+    }
 }

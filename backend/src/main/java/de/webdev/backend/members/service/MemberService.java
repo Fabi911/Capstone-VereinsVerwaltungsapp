@@ -28,4 +28,12 @@ public class MemberService {
         return memberRepository.findById(id).orElse(null);
     }
 
+    public Member updateMember(Member member, String id){
+        if(memberRepository.existsById(id)){
+            Member updatedMember=new Member(member.memberId(),member.lastName(),member.name(),member.birthday(),member.address(),member.email(),member.phoneNumber());
+            return memberRepository.save(updatedMember);
+        }
+        return memberRepository.save(member);
+    }
+
 }
