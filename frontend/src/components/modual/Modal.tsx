@@ -17,10 +17,10 @@ const ModalBox = styled.div`
   border-radius: 15px;
   position: fixed;
   top: 16%;
-  left: 10%;
+  left: 25%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  width: 80%;
+  width: 50%;
   margin-left: auto;
   margin-right: auto;
   display: flex;
