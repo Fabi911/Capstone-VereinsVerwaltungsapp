@@ -35,4 +35,9 @@ public class MemberController {
     public Member updateMember(@RequestBody Member member, @PathVariable String id){
         return memberService.updateMember(member,id);
     }
+
+    @DeleteMapping("{id}")
+    public void deleteMember(@PathVariable String id){
+        memberService.deleteMember(id);
+    }
 }

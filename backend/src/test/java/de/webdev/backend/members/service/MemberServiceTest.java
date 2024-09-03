@@ -116,4 +116,17 @@ class MemberServiceTest {
        verify(memberRepository).existsById(id);
        verify(memberRepository).save(member);
     }
+    @Test
+    void deleteMemberTest_whenMemberExists() {
+        // given
+        String id = "2024-001";
+        when(memberRepository.existsById(id)).thenReturn(true);
+
+        // when
+        MemberService memberService = new MemberService(memberRepository);
+        memberService.deleteMember(id);
+
+        // then
+        verify(memberRepository).deleteById(id);
+    }
 }

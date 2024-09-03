@@ -11,7 +11,7 @@ export default function EditMember({member,setModal,getMember} : {member:Member,
         putMember(data);
         form.reset();
         setModal(false);
-        setTimeout(() => getMember(), 500);
+        setTimeout(() => getMember(), 800);
     }
     const putMember = (data:any):void =>{
         axios.put(`/api/members/${member.memberId}`, {

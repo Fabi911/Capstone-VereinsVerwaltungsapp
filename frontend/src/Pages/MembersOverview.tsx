@@ -30,6 +30,7 @@ export default function MembersOverview() {
          fetchMembers();
      }, [modal]);
 
+
     const columns: GridColDef[] = [
         {
             field: 'link', headerName: 'Details', width: 100, renderCell: (params: GridRenderCellParams) => (
@@ -64,7 +65,7 @@ export default function MembersOverview() {
             <h1>Mitglieder</h1>
             <AddButton onClick={() => setModal(true)}><PersonAddIcon fontSize="large"/></AddButton>
 
-            {modal && <Modal setModal={setModal}><AddMember setModal={setModal}/></Modal>}
+            {modal && <Modal setModal={setModal}><AddMember setModal={setModal} fetchMembers={fetchMembers}/></Modal>}
 
             {!membersDB && <p>Daten werden geladen...</p>}
             {!membersDB && <StyledStack spacing={1}>
