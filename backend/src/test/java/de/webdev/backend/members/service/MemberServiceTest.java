@@ -81,6 +81,39 @@ class MemberServiceTest {
     }
 
 
+    @Test
+    void updateMemberTest_whenMemberExists() {
+        // given
+        String id = "2024-001";
+        Member updatedMember = new Member(id, "John", "Doe", LocalDate.parse("1995-02-01"), new Address("New Street 1", "12345", "Springfield"), "new_mail@mail.com", "123456789");
+        when(memberRepository.existsById(id)).thenReturn(true);
+        when(memberRepository.save(updatedMember)).thenReturn(updatedMember);
+
+        // when
+        MemberService memberService = new MemberService(memberRepository);
+        Member actual = memberService.updateMember(updatedMember, id);
+
+        // then
+        assertEquals(updatedMember, actual);
+        verify(memberRepository).existsById(id);
+        verify(memberRepository).save(updatedMember);
+   }
+
+   @Test
+   void updateMemberTest_whenMemberDoesNotExists() {
+       // given
+       String id ="2025-002";
+       Member member = new Member(id, "John", "Doe", LocalDate.parse("1990-02-01"), new Address("Main Street 1", "12345", "Springfield"), "test@tester.com", "123456789");
+       when(memberRepository.existsById(id)).thenReturn(false);
+       when(memberRepository.save(member)).thenReturn(member);
+
+       // when
+       MemberService memberService = new MemberService(memberRepository);
+       Member actual = memberService.updateMember(member, id);
+
+       // then
+       assertEquals(member, actual);
+       verify(memberRepository).existsById(id);
+       verify(memberRepository).save(member);
+    }
 }
-
-

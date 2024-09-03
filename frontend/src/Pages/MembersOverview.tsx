@@ -4,13 +4,17 @@ import AddMember from "../components/Forms/AddMember.tsx";
 import axios from "axios";
 import {Member} from "../types/member.ts";
 import {DataGrid, GridColDef, GridRenderCellParams} from '@mui/x-data-grid';
+import Skeleton from '@mui/material/Skeleton';
 import styled from "@emotion/styled";
 import {Link} from "react-router-dom";
+import {Stack} from "@mui/material";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 
 export default function MembersOverview() {
     const [modal, setModal] = useState(false);
-    const [membersDB, setMembersDB] = useState<Member[]>([]);
+    const [membersDB, setMembersDB] = useState<Member[] | null>(null);
 
     function fetchMembers(): void {
         axios.get('api/members')
@@ -22,15 +26,15 @@ export default function MembersOverview() {
             })
     }
 
-    useEffect(() => {
-        fetchMembers();
-    }, [modal]);
+     useEffect(() => {
+         fetchMembers();
+     }, [modal]);
 
     const columns: GridColDef[] = [
         {
             field: 'link', headerName: 'Details', width: 100, renderCell: (params: GridRenderCellParams) => (
                 <Link to={`/members/${params.row.memberId}`} className={"noDecoration"}>
-                    Details
+                    <AccountBoxIcon fontSize="large"/>
                 </Link>
             )
         },
@@ -56,20 +60,30 @@ export default function MembersOverview() {
         {field: 'memberId', headerName: 'Mitgliedsnummer', width: 120},
     ];
     return (
-        <div>
+        <Container>
             <h1>Mitglieder</h1>
-            <button onClick={() => setModal(true)}>Mitglied hinzufügen</button>
+            <AddButton onClick={() => setModal(true)}><PersonAddIcon fontSize="large"/></AddButton>
+
             {modal && <Modal setModal={setModal}><AddMember setModal={setModal}/></Modal>}
 
-            <SyledDataGrid rows={membersDB} columns={columns} getRowId={(row) => row.memberId} initialState={{
-                pagination: {
-                    paginationModel: {
-                        pageSize: 10,
+            {!membersDB && <p>Daten werden geladen...</p>}
+            {!membersDB && <StyledStack spacing={1}>
+                <Skeleton variant="text" sx={{fontSize: '3rem'}}/>
+                <Skeleton variant="rectangular" width={410} height={60}/>
+                <Skeleton variant="rectangular" width={410} height={60}/>
+                <Skeleton variant="rectangular" width={410} height={60}/>
+            </StyledStack>}
+
+            {membersDB &&
+                <SyledDataGrid rows={membersDB} columns={columns} getRowId={(row) => row.memberId} initialState={{
+                    pagination: {
+                        paginationModel: {
+                            pageSize: 10,
+                        },
                     },
-                },
-            }}
-                           sx={{fontSize: '1.4rem'}}/>
-        </div>
+                }}
+                               sx={{fontSize: '1.4rem'}}/>}
+        </Container>
     );
 }
 
@@ -80,3 +94,16 @@ const SyledDataGrid = styled(DataGrid)`
     margin-top: 2rem;
 `;
 
+const StyledStack = styled(Stack)`
+    margin-top: 2rem;
+`;
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const AddButton = styled.button`
+    align-self: flex-start;
+`
