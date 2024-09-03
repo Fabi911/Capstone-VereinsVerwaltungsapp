@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import axios from "axios";
 
-export default function AddMember({setModal} : {setModal: (value: boolean) => void}) {
+export default function AddMember({setModal,fetchMembers} : {setModal: (value: boolean) => void, fetchMembers: () => void}) {
     const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = event.currentTarget;
@@ -10,6 +10,7 @@ export default function AddMember({setModal} : {setModal: (value: boolean) => vo
         postMember(data);
         form.reset();
         setModal(false);
+        setTimeout(() => fetchMembers(), 800);
 
     }
     const postMember = (data:any):void =>{
