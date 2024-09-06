@@ -23,4 +23,9 @@ export const globalStyles = css`
 
     }
 
-	`;
+    .noDecoration {
+        text-decoration: none;
+        color: black;
+    }
+
+`;
