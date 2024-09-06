@@ -30,7 +30,7 @@ public class ProtocolController {
     private final ProtocolService protocolService;
 
 
-    @PostMapping("/saveProtocol")
+    @PostMapping("/protocols")
     public ResponseEntity<Protocol> saveProtocol(@Validated @RequestBody Protocol protocol) {
         try {
             Protocol savedProtocol = protocolService.saveProtocol(protocol);
@@ -62,9 +62,9 @@ public class ProtocolController {
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document document = new Document(pdfDoc);
 
-            // Füge den Textinhalt in das PDF-Dokument ein
+
             document.add(new Paragraph(request.getContent()));
-            document.close(); // Schließt das Document und PdfDocument
+            document.close();
 
             byte[] pdfBytes = outputStream.toByteArray();
 

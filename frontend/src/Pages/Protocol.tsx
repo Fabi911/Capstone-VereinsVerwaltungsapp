@@ -7,7 +7,7 @@ const Protocol: React.FC = () => {
     const [content, setContent] = useLocalStorageState<string>('');
     const handleSave = async (content: string) => {
         try {
-            await axios.post('/api/saveDocument', { content });
+            await axios.post('/api/protocols', { content });
             alert('Dokument erfolgreich gespeichert!');
         } catch (error) {
             console.error('Fehler beim Speichern des Dokuments:', error);

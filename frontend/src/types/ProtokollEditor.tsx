@@ -16,9 +16,9 @@ const ProtokollEditor: React.FC<ProtokollEditorProps> = ({ content, setContent, 
                 value={content}
                 onChange={setContent}
                 placeholder="Schreibe hier dein Protokoll..."
-                theme="snow" // Es gibt verschiedene Themes: 'snow', 'bubble'
+                theme="snow"
             />
-            <button onClick={onSave}>Speichern</button>
+            <button onClick={()=>onSave(content)}>Speichern</button>
         </div>
     );
 };
