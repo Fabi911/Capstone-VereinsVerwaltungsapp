@@ -15,6 +15,8 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 export default function MembersOverview() {
     const [modal, setModal] = useState(false);
     const [membersDB, setMembersDB] = useState<Member[] | null>(null);
+    const [search, setSearch] = useState<string>('');
+    console.log(searchMembers());
 
     function fetchMembers(): void {
         axios.get('api/members')
@@ -26,9 +28,9 @@ export default function MembersOverview() {
             })
     }
 
-     useEffect(() => {
-         fetchMembers();
-     }, [modal]);
+    useEffect(() => {
+        fetchMembers();
+    }, [modal]);
 
 
     const columns: GridColDef[] = [
@@ -60,13 +62,30 @@ export default function MembersOverview() {
         },
         {field: 'memberId', headerName: 'Mitgliedsnummer', width: 120},
     ];
+
+    function searchMembers(): Member[] {
+        return membersDB?.filter(member => {
+            return member.name.toLowerCase().includes(search.toLowerCase()) ||
+                member.lastName.toLowerCase().includes(search.toLowerCase()) ||
+                member.email.toLowerCase().includes(search.toLowerCase()) ||
+                member.phoneNumber.toLowerCase().includes(search.toLowerCase()) ||
+                member.address.street.toLowerCase().includes(search.toLowerCase()) ||
+                member.address.zip.toLowerCase().includes(search.toLowerCase()) ||
+                member.address.city.toLowerCase().includes(search.toLowerCase()) ||
+                member.birthday.toLowerCase().includes(search.toLowerCase()) ||
+                member.memberId.toString().toLowerCase().includes(search.toLowerCase());
+        }) || [];
+    }
+
+    searchMembers();
+
     return (
         <Container>
             <h1>Mitglieder</h1>
             <AddButton onClick={() => setModal(true)}><PersonAddIcon fontSize="large"/></AddButton>
 
             {modal && <Modal setModal={setModal}><AddMember setModal={setModal} fetchMembers={fetchMembers}/></Modal>}
-
+            <input type="search" placeholder="Suche..." onChange={event => setSearch(event.target.value)}/>
             {!membersDB && <p>Daten werden geladen...</p>}
             {!membersDB && <StyledStack spacing={1}>
                 <Skeleton variant="text" sx={{fontSize: '3rem'}}/>
@@ -76,7 +95,7 @@ export default function MembersOverview() {
             </StyledStack>}
 
             {membersDB &&
-                <SyledDataGrid rows={membersDB} columns={columns} getRowId={(row) => row.memberId} initialState={{
+                <SyledDataGrid rows={searchMembers()} columns={columns} getRowId={(row) => row.memberId} initialState={{
                     pagination: {
                         paginationModel: {
                             pageSize: 10,
