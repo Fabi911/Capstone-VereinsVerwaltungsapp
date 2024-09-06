@@ -3,7 +3,6 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import {Member} from "../types/member.ts";
 import axios from "axios";
 import styled from "@emotion/styled";
-//Material UI Icons
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';

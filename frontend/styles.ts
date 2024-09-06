@@ -9,23 +9,18 @@ export const globalStyles = css`
         font-family: worksans, sans-serif;
 
         --box-shadow-default: 0 0 10px rgba(0, 0, 0, 0.1);
-       
+
     }
-    
+
     body {
         font-size: 1.6rem;
         background-color: #f0f0f0;
         color: #333;
-        margin: 15rem 0 ;
+        margin: 15rem 0;
         display: flex;
         flex-direction: column;
         align-items: center;
 
     }
 
-    .noDecoration {
-        text-decoration: none !important;
-        color: #000;
-    }
-
-`;
+	`;
