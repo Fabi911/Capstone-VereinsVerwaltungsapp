@@ -15,9 +15,10 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 export default function MembersOverview() {
     const [modal, setModal] = useState(false);
     const [membersDB, setMembersDB] = useState<Member[] | null>(null);
+    const [search, setSearch] = useState<string>('');
 
     function fetchMembers(): void {
-        axios.get('api/members')
+        axios.get('/api/members')
             .then(response => {
                 setMembersDB(response.data);
             })
@@ -26,9 +27,9 @@ export default function MembersOverview() {
             })
     }
 
-     useEffect(() => {
-         fetchMembers();
-     }, [modal]);
+    useEffect(() => {
+        fetchMembers();
+    }, [modal]);
 
 
     const columns: GridColDef[] = [
@@ -60,43 +61,76 @@ export default function MembersOverview() {
         },
         {field: 'memberId', headerName: 'Mitgliedsnummer', width: 120},
     ];
+
+    function searchMembers(): Member[] {
+        return membersDB?.filter(member => {
+            const lowerCaseSearch = search.toLowerCase();
+            return member.name.toLowerCase().includes(lowerCaseSearch) ||
+                member.lastName.toLowerCase().includes(lowerCaseSearch) ||
+                member.email.toLowerCase().includes(lowerCaseSearch) ||
+                member.phoneNumber.toLowerCase().includes(lowerCaseSearch) ||
+                /*member.address.street.toLowerCase().includes(lowerCaseSearch) ||
+                member.address.zip.toLowerCase().includes(lowerCaseSearch) ||
+                member.address.city.toLowerCase().includes(lowerCaseSearch) ||*/
+                member.birthday.toString().includes(lowerCaseSearch) ||
+                member.memberId.toString().toLowerCase().includes(lowerCaseSearch);
+        }) || [];
+    }
+
+
+
     return (
         <Container>
             <h1>Mitglieder</h1>
-            <AddButton onClick={() => setModal(true)}><PersonAddIcon fontSize="large"/></AddButton>
 
-            {modal && <Modal setModal={setModal}><AddMember setModal={setModal} fetchMembers={fetchMembers}/></Modal>}
+            <OverviewMenuBar>
+                <AddButton onClick={() => setModal(true)}><PersonAddIcon fontSize="large"/></AddButton>
+                <SearchField type="search" placeholder="Suche..." onChange={event => setSearch(event.target.value)}/>
+            </OverviewMenuBar>
+            {
+                modal && <Modal setModal={setModal}><AddMember setModal={setModal} fetchMembers={fetchMembers}/></Modal>
+            }
 
-            {!membersDB && <p>Daten werden geladen...</p>}
-            {!membersDB && <StyledStack spacing={1}>
-                <Skeleton variant="text" sx={{fontSize: '3rem'}}/>
-                <Skeleton variant="rectangular" width={410} height={60}/>
-                <Skeleton variant="rectangular" width={410} height={60}/>
-                <Skeleton variant="rectangular" width={410} height={60}/>
-            </StyledStack>}
 
-            {membersDB &&
-                <SyledDataGrid rows={membersDB} columns={columns} getRowId={(row) => row.memberId} initialState={{
-                    pagination: {
-                        paginationModel: {
-                            pageSize: 10,
-                        },
-                    },
-                }}
-                               sx={{fontSize: '1.4rem'}}/>}
+            {
+                !membersDB && <p>Daten werden geladen...</p>
+            }
+            {
+                !membersDB && <StyledStack spacing={1}>
+                    <Skeleton variant="text" sx={{fontSize: '3rem'}}/>
+                    <Skeleton variant="rectangular" height={60}/>
+                    <Skeleton variant="rectangular" height={60}/>
+                    <Skeleton variant="rectangular" height={60}/>
+                </StyledStack>
+            }
+
+            {
+                membersDB &&
+                <StyledDataGrid rows={searchMembers()} columns={columns} getRowId={(row) => row.memberId}
+                                initialState={{
+                                    pagination: {
+                                        paginationModel: {
+                                            pageSize: 10,
+                                        },
+                                    },
+                                }}
+                                sx={{fontSize: '1.4rem'}}/>
+            }
         </Container>
-    );
+    )
+        ;
 }
 
 // Styles
 
-const SyledDataGrid = styled(DataGrid)`
+const StyledDataGrid = styled(DataGrid)`
     width: 90vw;
     margin-top: 2rem;
 `;
 
 const StyledStack = styled(Stack)`
     margin-top: 2rem;
+    width: 90vw;
 `;
 
 const Container = styled.div`
@@ -105,6 +139,19 @@ const Container = styled.div`
     align-items: center;
 `;
 
+const OverviewMenuBar = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 90vw;
+    padding: 0 0 1rem 0;
+    border-bottom: 1px solid black;
+`;
+
 const AddButton = styled.button`
     align-self: flex-start;
-`
+`;
+
+const SearchField = styled.input`
+    width: 25rem;
+    align-self: flex-end;
+`;
