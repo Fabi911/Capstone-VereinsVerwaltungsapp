@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 export default function Footer() {
     return (
         <StyledFooter>
-            <p>&copy; 2024</p>
+            <p>&copy; 2024 Fabian Döz. All rights reserved.</p>
         </StyledFooter>
     );
 }
