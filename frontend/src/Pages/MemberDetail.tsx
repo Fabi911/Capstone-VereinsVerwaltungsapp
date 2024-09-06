@@ -9,83 +9,76 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-
 import Modal from "../components/modual/Modal.tsx";
 import EditMember from "../components/Forms/EditMember.tsx";
 
-
 export default function MemberDetail() {
-    const {id} = useParams();
-    const [memberData, setMemberData] = useState<Member>();
-    const [modal, setModal] = useState(false);
-    const navigate = useNavigate()
-    const [isRemoved, setIsRemoved] = useState<boolean>(false);
+	const {id} = useParams();
+	const [memberData, setMemberData] = useState<Member>();
+	const [modal, setModal] = useState(false);
+	const navigate = useNavigate()
+	const [isRemoved, setIsRemoved] = useState<boolean>(false);
 
-    async function getMember(): Promise<void> {
-        try {
-            const response = await axios.get(`/api/members/${id}`)
-            setMemberData(response.data);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+	async function getMember(): Promise<void> {
+		try {
+			const response = await axios.get(`/api/members/${id}`)
+			setMemberData(response.data);
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
+	}
 
-    }
+	function removeMember(id: string): void {
+		axios.delete(`/api/members/${id}`)
+			.then(() => navigate('/members'))
+			.catch(error => {
+				console.log(error);
+			})
+	}
 
-    function removeMember(id: string): void {
-        axios.delete(`/api/members/${id}`)
-            .then(() => navigate('/members'))
-            .catch(error => {
-                console.log(error);
-            })
-    }
-
-
-    useEffect(() => {
-        getMember().then(() => console.log('Member fetched'));
-    }, [id]);
-
-    if (!memberData) {
-        return <div>Loading...</div>;
-    }
-
-    const {name, lastName, email, phoneNumber, address, birthday, memberId} = memberData;
-    return (
-        <DetailsBox>
-            <BackLink to={"/members"}><ArrowBackIcon fontSize="large"/></BackLink>
-            <MemberBox>
-                <h1>{name} {lastName}</h1>
-                <span>Mitgliedsnr.: {memberId}</span>
-                <span>Adresse: <br/>{address.street}<br/> {address.zip} {address.city}</span>
-                <span>Tel: {phoneNumber}</span>
-                <span>E-Mail: {email}</span>
-                <span>Geburtstag: {new Date(birthday).toLocaleDateString()}</span>
-                <ButtonBox>
-                    <button onClick={() => setModal(true)}><EditNoteIcon fontSize="large"/></button>
-                    {modal && <Modal setModal={setModal}><EditMember member={memberData} setModal={setModal}
-                                                                     getMember={getMember}/></Modal>}
-                    {!isRemoved &&
-                        <button onClick={() => setIsRemoved(true)}><PersonRemoveIcon fontSize="large"/></button>}
-                    {isRemoved && (
-                        <DeleteConfirmBox>
-                            <ConfirmDeleteText>Mitlglied wirklich löschen?</ConfirmDeleteText>
-                            <ConfirmDeleteButtons>
-                                <ButtonForConfirm onClick={() => removeMember(memberId)}>
-                                    <CheckCircleIcon fontSize={"large"}/>
-                                </ButtonForConfirm>
-                                <ButtonForCancel onClick={() => setIsRemoved(false)}>
-                                    <CancelIcon fontSize={"large"}/>
-                                </ButtonForCancel>
-                            </ConfirmDeleteButtons>
-                        </DeleteConfirmBox>
-                    )}
-                </ButtonBox>
-            </MemberBox>
-        </DetailsBox>
-    );
+	useEffect(() => {
+		getMember().then(() => console.log('Member fetched'));
+	}, [id]);
+	if (!memberData) {
+		return <div>Loading...</div>;
+	}
+	const {name, lastName, email, phoneNumber, address, birthday, memberId} = memberData;
+	return (
+		<DetailsBox>
+			<BackLink to={"/members"}><ArrowBackIcon fontSize="large"/></BackLink>
+			<MemberBox>
+				<h1>{name} {lastName}</h1>
+				<span>Mitgliedsnr.: {memberId}</span>
+				<span>Adresse: <br/>{address.street}<br/> {address.zip} {address.city}</span>
+				<span>Tel: {phoneNumber}</span>
+				<span>E-Mail: {email}</span>
+				<span>Geburtstag: {new Date(birthday).toLocaleDateString()}</span>
+				<ButtonBox>
+					<button onClick={() => setModal(true)}><EditNoteIcon fontSize="large"/></button>
+					{modal && <Modal setModal={setModal}>
+						<EditMember member={memberData} setModal={setModal} getMember={getMember}/>
+					</Modal>}
+					{!isRemoved &&
+						<button onClick={() => setIsRemoved(true)}><PersonRemoveIcon fontSize="large"/></button>}
+					{isRemoved && (
+						<DeleteConfirmBox>
+							<ConfirmDeleteText>Mitlglied wirklich löschen?</ConfirmDeleteText>
+							<ConfirmDeleteButtons>
+								<ButtonForConfirm onClick={() => removeMember(memberId)}>
+									<CheckCircleIcon fontSize={"large"}/>
+								</ButtonForConfirm>
+								<ButtonForCancel onClick={() => setIsRemoved(false)}>
+									<CancelIcon fontSize={"large"}/>
+								</ButtonForCancel>
+							</ConfirmDeleteButtons>
+						</DeleteConfirmBox>
+					)}
+				</ButtonBox>
+			</MemberBox>
+		</DetailsBox>
+	);
 }
-
 // Styling
-
 const DetailsBox = styled.div`
     width: 50vw;
     display: flex;
@@ -94,22 +87,18 @@ const DetailsBox = styled.div`
     /*background-color: #808080;*/
     padding: 1rem;
 `;
-
 const BackLink = styled(Link)`
     align-self: flex-start;
     color: black;
     text-decoration: none;
 
 `;
-
 const MemberBox = styled.div`
     width: 75%;
     display: flex;
     flex-direction: column;
     gap: 1rem;
 `;
-
-
 const ButtonBox = styled.div`
     display: flex;
     gap: 2rem;
@@ -119,14 +108,12 @@ const ButtonBox = styled.div`
     padding: 0.5rem;
     width: 50%;
 `;
-
 const DeleteConfirmBox = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     gap: 0;
 `;
-
 const ConfirmDeleteButtons = styled.p`
     display: flex;
     gap: 1rem;
@@ -134,18 +121,15 @@ const ConfirmDeleteButtons = styled.p`
     margin: 0;
     align-self: center;
 `;
-
 const ConfirmDeleteText = styled.p`
     color: #9a1515;
 `;
-
 const ButtonForConfirm = styled.button`
     border: none;
     background: none;
     color: green;
     cursor: pointer;
 `;
-
 const ButtonForCancel = styled.button`
     border: none;
     background: none;
