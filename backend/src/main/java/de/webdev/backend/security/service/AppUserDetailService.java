@@ -1,5 +1,6 @@
-package de.webdev.backend.security;
+package de.webdev.backend.security.service;
 
+import de.webdev.backend.security.models.AppUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,11 +14,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AppUserDetailService implements UserDetailsService {
 
-	private final UserService userService;
+	private final AppuserService appuserService;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		AppUser appUser = userService.findByUsername(username);
+		AppUser appUser = appuserService.findByUsername(username);
 		return new User(
 				appUser.getUsername(),
 				appUser.getPassword(),

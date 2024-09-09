@@ -1,4 +1,4 @@
-package de.webdev.backend.security;
+package de.webdev.backend.security.models;
 
 public record AppUserResponse(
 		String id,
