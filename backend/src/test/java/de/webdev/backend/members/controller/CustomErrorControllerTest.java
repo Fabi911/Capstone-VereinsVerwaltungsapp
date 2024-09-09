@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     private MockMvc mockMvc;
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles="USER")
     void handleError_redirectsToRoot() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/error"))
                 .andExpect(status().is3xxRedirection())
