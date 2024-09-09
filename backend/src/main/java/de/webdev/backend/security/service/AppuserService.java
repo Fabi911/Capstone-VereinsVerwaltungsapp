@@ -1,6 +1,10 @@
-package de.webdev.backend.security;
+package de.webdev.backend.security.service;
 
 
+import de.webdev.backend.security.models.AppUser;
+import de.webdev.backend.security.models.AppUserDTO;
+import de.webdev.backend.security.models.AppUserResponse;
+import de.webdev.backend.security.repository.AppuserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -10,20 +14,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class AppuserService {
 
-	private final UserRepository userRepository;
+	private final AppuserRepository appuserRepository;
 	private final PasswordEncoder passwordEncoder;
 
 	public AppUser findByUsername(String username) {
-		return userRepository
+		return appuserRepository
 				.findByUsername(username)
 				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
 	}
 
 	public AppUserResponse getLoggedInUser() {
 		var principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		AppUser appUser= findByUsername(principal.getUsername());
+		AppUser appUser = findByUsername(principal.getUsername());
 		return new AppUserResponse(appUser.getId(), appUser.getUsername());
 	}
 
@@ -31,7 +35,7 @@ public class UserService {
 		AppUser appUser = new AppUser();
 		appUser.setUsername(appUserDTO.username());
 		appUser.setPassword(passwordEncoder.encode(appUserDTO.password()));
-		appUser= userRepository.save(appUser);
+		appUser = appuserRepository.save(appUser);
 		return new AppUserResponse(appUser.getId(), appUser.getUsername());
 	}
 }

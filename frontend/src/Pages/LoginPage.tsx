@@ -2,7 +2,7 @@ import axios from "axios";
 import {FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
-export default function LoginPage() {
+export default function LoginPage({setIsUserLoggedIn}: { setIsUserLoggedIn: (value: boolean) => void }) {
 	const [username, setUsername] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	const navigate = useNavigate();
@@ -17,6 +17,8 @@ export default function LoginPage() {
 			.then(() => {
 				setUsername("");
 				setPassword("");
+				console.log("Login successful");
+				setIsUserLoggedIn(true);
 				navigate("/");
 			})
 			.catch(e => {

@@ -3,18 +3,18 @@ import Header from "./Header.tsx";
 import {ReactNode} from "react";
 
 type LayoutProps = {
-    children: ReactNode;
+	children: ReactNode;
+	logout: () => void;
+	isUserLoggedIn: boolean;
 };
-
-export default function Layout({children}: LayoutProps) {
-    return (
-        <>
-            <Header/>
-            <main>
-                {children}
-            </main>
-            <Footer/>
-        </>
-    );
+export default function Layout({children, logout, isUserLoggedIn}: LayoutProps) {
+	return (
+		<>
+			<Header logout={logout} isUserLoggedIn={isUserLoggedIn}/>
+			<main>
+				{children}
+			</main>
+			<Footer/>
+		</>
+	);
 }
-
