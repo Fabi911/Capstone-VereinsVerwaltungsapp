@@ -4,7 +4,6 @@ package de.webdev.backend.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -35,7 +34,7 @@ public class SecurityConfig {
 								.requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
 								.anyRequest().authenticated()
 				)
-				.httpBasic(Customizer.withDefaults());
+				.httpBasic(httpSecurityHttpBasicConfigurer -> httpSecurityHttpBasicConfigurer.authenticationEntryPoint((request, response, authException) -> response.sendError(401)));
 		return http.build();
 	}
 
