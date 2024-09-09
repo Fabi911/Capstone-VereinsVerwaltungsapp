@@ -1,6 +1,7 @@
 package de.webdev.backend.security.service;
 
 
+import de.webdev.backend.security.AppuserRole;
 import de.webdev.backend.security.models.AppUser;
 import de.webdev.backend.security.models.AppUserDTO;
 import de.webdev.backend.security.models.AppUserResponse;
@@ -28,14 +29,15 @@ public class AppuserService {
 	public AppUserResponse getLoggedInUser() {
 		var principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		AppUser appUser = findByUsername(principal.getUsername());
-		return new AppUserResponse(appUser.getId(), appUser.getUsername());
+		return new AppUserResponse(appUser.getId(), appUser.getUsername(),appUser.getRole());
 	}
 
 	public AppUserResponse registerUser(AppUserDTO appUserDTO) {
 		AppUser appUser = new AppUser();
 		appUser.setUsername(appUserDTO.username());
 		appUser.setPassword(passwordEncoder.encode(appUserDTO.password()));
+		appUser.setRole(AppuserRole.USER);
 		appUser = appuserRepository.save(appUser);
-		return new AppUserResponse(appUser.getId(), appUser.getUsername());
+		return new AppUserResponse(appUser.getId(), appUser.getUsername(), appUser.getRole());
 	}
 }

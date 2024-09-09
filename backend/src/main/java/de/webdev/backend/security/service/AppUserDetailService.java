@@ -2,6 +2,7 @@ package de.webdev.backend.security.service;
 
 import de.webdev.backend.security.models.AppUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,7 +23,9 @@ public class AppUserDetailService implements UserDetailsService {
 		return new User(
 				appUser.getUsername(),
 				appUser.getPassword(),
-				List.of()
+				List.of(
+						new SimpleGrantedAuthority("ROLE_" + appUser.getRole())
+				)
 		);
 	}
 
