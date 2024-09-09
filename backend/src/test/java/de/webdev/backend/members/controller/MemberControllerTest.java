@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -22,12 +23,14 @@ class MemberControllerTest {
 
     @DirtiesContext
     @Test
+    @WithMockUser
     void getMembers_shouldReturnEmptyList_whenCallInitially() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/members")).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().json("[]"));
     }
 
     @DirtiesContext
     @Test
+    @WithMockUser
     void addMember_shouldReturnMember_whenAddMember() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/members").contentType("application/json").content("""
                  {
@@ -62,6 +65,7 @@ class MemberControllerTest {
 
     @DirtiesContext
     @Test
+    @WithMockUser
     void getMemberById_shouldReturnMember_whenGetMemberById() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/members").contentType("application/json").content("""
                 {
@@ -98,6 +102,7 @@ class MemberControllerTest {
 
     @DirtiesContext
     @Test
+    @WithMockUser
     void updateMember_shouldReturnUpdatedMember_whenUpdateMember() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/members").contentType("application/json").content("""
                 {
@@ -147,6 +152,7 @@ class MemberControllerTest {
 
     @DirtiesContext
     @Test
+    @WithMockUser
     void deleteMember_shouldReturnHttpNoContent_whenDeleteExistingMember() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/members").contentType("application/json").content("""
                 {
