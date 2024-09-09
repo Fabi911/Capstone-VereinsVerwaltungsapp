@@ -12,32 +12,32 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberController {
 
-    private final MemberService memberService;
+	private final MemberService memberService;
 
 
-    @GetMapping
-    public List<Member> getAllMembers() {
-        return memberService.getAllMembers();
-    }
+	@GetMapping
+	public List<Member> getAllMembers() {
+		return memberService.getAllMembers();
+	}
 
 
-    @PostMapping
-    public Member addMember(@RequestBody Member member) {
-        return memberService.addMember(member);
-    }
+	@PostMapping
+	public Member addMember(@RequestBody Member member) {
+		return memberService.addMember(member);
+	}
 
-    @GetMapping("{id}")
-    public Member getMemberById(@PathVariable String id){
-        return memberService.getMemberById(id);
-    }
+	@GetMapping("{id}")
+	public Member getMemberById(@PathVariable String id) {
+		return memberService.getMemberById(id);
+	}
 
-    @PutMapping("{id}")
-    public Member updateMember(@RequestBody Member member, @PathVariable String id){
-        return memberService.updateMember(member,id);
-    }
+	@PutMapping("{id}")
+	public Member updateMember(@RequestBody Member member, @PathVariable String id) {
+		return memberService.updateMember(member, id);
+	}
 
-    @DeleteMapping("{id}")
-    public void deleteMember(@PathVariable String id){
-        memberService.deleteMember(id);
-    }
+	@DeleteMapping("{id}")
+	public void deleteMember(@PathVariable String id) {
+		memberService.deleteMember(id);
+	}
 }
