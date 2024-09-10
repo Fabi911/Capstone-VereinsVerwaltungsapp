@@ -7,6 +7,7 @@ import de.webdev.backend.security.models.AppUserDTO;
 import de.webdev.backend.security.models.AppUserResponse;
 import de.webdev.backend.security.repository.AppuserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -33,6 +34,9 @@ public class AppuserService {
 	}
 
 	public AppUserResponse registerUser(AppUserDTO appUserDTO) {
+		if (appuserRepository.findByUsername(appUserDTO.username()).isPresent()) {
+			throw new DataIntegrityViolationException("Username already taken");
+		}
 		AppUser appUser = new AppUser();
 		appUser.setUsername(appUserDTO.username());
 		appUser.setPassword(passwordEncoder.encode(appUserDTO.password()));

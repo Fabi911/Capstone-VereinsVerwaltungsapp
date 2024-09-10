@@ -13,7 +13,6 @@ export type AppUser = {
 	username: string;
 	role: "ADMIN" | "USER";
 }
-
 export default function App() {
 	const [appUser, setAppUser] = useState<AppUser | null | undefined>(undefined);
 	const navigate = useNavigate();
@@ -60,6 +59,9 @@ export default function App() {
 		return (
 			<Layout logout={logout} appUser={appUser}>
 				<LoginPage login={login}/>
+				<Routes>
+					<Route path="/register" element={<RegisterPage/>}/>
+				</Routes>
 			</Layout>
 		)
 	}
