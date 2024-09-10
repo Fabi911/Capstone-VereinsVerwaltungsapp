@@ -14,8 +14,7 @@ export type AppUser = {
 	role: "ADMIN" | "USER";
 }
 export default function App() {
-	const [appUser, setAppUser] = useState<AppUser | null >(null);
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [appUser, setAppUser] = useState<AppUser | null>(null);
 	const navigate = useNavigate();
 
 	function login(username: string, password: string) {
@@ -28,7 +27,6 @@ export default function App() {
 			.then(() => {
 				console.log("Login successful");
 				fetchMe();
-				setIsLoggedIn(true);
 				navigate("/");
 			})
 			.catch(e => {
@@ -40,7 +38,6 @@ export default function App() {
 	function logout() {
 		axios.post("/api/users/logout")
 			.then(() => {
-				setIsLoggedIn(false);
 				console.log("Logout successful");
 			})
 			.catch(e => console.error(e))
@@ -58,12 +55,31 @@ export default function App() {
 	useEffect(() => {
 		fetchMe();
 	}, []);
-
-	console.log("appUser: "+appUser);
-
-	if (!isLoggedIn) {
+	if (appUser?.role === "ADMIN" || appUser?.role === "USER") {
 		return (
-			<Layout logout={logout} isLoggedIn={isLoggedIn}>
+			<Layout logout={logout} appUser={appUser}>
+				{
+					appUser?.role === "ADMIN" && <Routes>
+						<Route path="/login" element={<LoginPage login={login}/>}/>
+						<Route path="/" element={<Dashboard/>}/>
+						<Route path="/members" element={<MembersOverview/>}/>
+						<Route path="/members/:id" element={<MemberDetail/>}/>
+						<Route path="/register" element={<RegisterPage/>}/>
+					</Routes>
+				}
+				{
+					appUser?.role === "USER" &&
+					<>
+						<p>Sie sind für diesen Bereich nicht berechtigt!</p>
+						<p>Bitte wenden Sie sich an Ihren Admin.</p>
+					</>
+				}
+			</Layout>
+		)
+	}
+	if (!appUser?.role) {
+		return (
+			<Layout logout={logout} appUser={appUser}>
 				<Routes>
 					<Route path="/" element={<LoginPage login={login}/>}/>
 					<Route path="/register" element={<RegisterPage/>}/>
@@ -71,24 +87,4 @@ export default function App() {
 			</Layout>
 		)
 	}
-	return (
-		<Layout logout={logout} isLoggedIn={isLoggedIn}>
-			{
-				appUser?.role === "ADMIN" && <Routes>
-					<Route path="/login" element={<LoginPage login={login}/>}/>
-					<Route path="/" element={<Dashboard/>}/>
-					<Route path="/members" element={<MembersOverview/>}/>
-					<Route path="/members/:id" element={<MemberDetail/>}/>
-					<Route path="/register" element={<RegisterPage/>}/>
-				</Routes>
-			}
-			{
-				appUser?.role === "USER" &&
-				<>
-					<p>Sie sind für diesen Bereich nicht berechtigt!</p>
-					<p>Bitte wenden Sie sich an Ihren Admin.</p>
-				</>
-			}
-		</Layout>
-	)
 }

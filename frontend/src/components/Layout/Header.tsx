@@ -2,11 +2,11 @@ import {Link} from "react-router-dom";
 import styled from "@emotion/styled";
 
 
-export default function Header({logout, isLoggedIn}: { logout: () => void, isLoggedIn: boolean }) {
+export default function Header({logout, appUser}: { logout: () => void, appUser: { role: string } | null }) {
 	return (
 		<StyledHeader>
 			<StyledLink to={"/"}><h1>Vereinsverwaltung</h1></StyledLink>
-			{isLoggedIn &&
+			{appUser?.role &&
 				<StyledLink to={"/"} onClick={logout}>Logout</StyledLink>}
 		</StyledHeader>
 	);
