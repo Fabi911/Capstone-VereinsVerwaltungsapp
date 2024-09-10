@@ -23,14 +23,14 @@ class MemberControllerTest {
 
     @DirtiesContext
     @Test
-    @WithMockUser
+    @WithMockUser(roles="ADMIN")
     void getMembers_shouldReturnEmptyList_whenCallInitially() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/members")).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().json("[]"));
     }
 
     @DirtiesContext
     @Test
-    @WithMockUser
+    @WithMockUser(roles="ADMIN")
     void addMember_shouldReturnMember_whenAddMember() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/members").contentType("application/json").content("""
                  {
@@ -65,7 +65,7 @@ class MemberControllerTest {
 
     @DirtiesContext
     @Test
-    @WithMockUser
+    @WithMockUser(roles="ADMIN")
     void getMemberById_shouldReturnMember_whenGetMemberById() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/members").contentType("application/json").content("""
                 {
@@ -102,7 +102,7 @@ class MemberControllerTest {
 
     @DirtiesContext
     @Test
-    @WithMockUser
+    @WithMockUser(roles="ADMIN")
     void updateMember_shouldReturnUpdatedMember_whenUpdateMember() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/members").contentType("application/json").content("""
                 {
@@ -152,7 +152,7 @@ class MemberControllerTest {
 
     @DirtiesContext
     @Test
-    @WithMockUser
+    @WithMockUser(roles="ADMIN")
     void deleteMember_shouldReturnHttpNoContent_whenDeleteExistingMember() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/members").contentType("application/json").content("""
                 {

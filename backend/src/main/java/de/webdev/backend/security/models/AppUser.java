@@ -1,5 +1,6 @@
 package de.webdev.backend.security.models;
 
+import de.webdev.backend.security.AppuserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,8 +13,8 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 @Document(collection = "users")
 public class AppUser {
 	@MongoId
-	String id;
-	String username;
-	String password;
-
+	private String id;
+	private String username;
+	private String password;
+	private AppuserRole role;
 }
