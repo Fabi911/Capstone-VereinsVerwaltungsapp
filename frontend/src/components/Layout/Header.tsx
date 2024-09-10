@@ -1,13 +1,13 @@
 import {Link} from "react-router-dom";
 import styled from "@emotion/styled";
-import {AppUser} from "../../App.tsx";
 
-export default function Header({logout, appUser}: { logout: () => void, appUser: AppUser | null | undefined }) {
+
+export default function Header({logout, isLoggedIn}: { logout: () => void, isLoggedIn: boolean }) {
 	return (
 		<StyledHeader>
 			<StyledLink to={"/"}><h1>Vereinsverwaltung</h1></StyledLink>
-			{appUser &&
-				<StyledLink to={"/login"} onClick={logout}>Logout</StyledLink>}
+			{isLoggedIn &&
+				<StyledLink to={"/"} onClick={logout}>Logout</StyledLink>}
 		</StyledHeader>
 	);
 }

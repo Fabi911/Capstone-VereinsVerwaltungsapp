@@ -14,7 +14,8 @@ export type AppUser = {
 	role: "ADMIN" | "USER";
 }
 export default function App() {
-	const [appUser, setAppUser] = useState<AppUser | null | undefined>(undefined);
+	const [appUser, setAppUser] = useState<AppUser | null >(null);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const navigate = useNavigate();
 
 	function login(username: string, password: string) {
@@ -27,6 +28,7 @@ export default function App() {
 			.then(() => {
 				console.log("Login successful");
 				fetchMe();
+				setIsLoggedIn(true);
 				navigate("/");
 			})
 			.catch(e => {
@@ -38,6 +40,7 @@ export default function App() {
 	function logout() {
 		axios.post("/api/users/logout")
 			.then(() => {
+				setIsLoggedIn(false);
 				console.log("Logout successful");
 			})
 			.catch(e => console.error(e))
@@ -55,18 +58,21 @@ export default function App() {
 	useEffect(() => {
 		fetchMe();
 	}, []);
-	if (appUser === undefined || appUser === null) {
+
+	console.log("appUser: "+appUser);
+
+	if (!isLoggedIn) {
 		return (
-			<Layout logout={logout} appUser={appUser}>
-				<LoginPage login={login}/>
+			<Layout logout={logout} isLoggedIn={isLoggedIn}>
 				<Routes>
+					<Route path="/" element={<LoginPage login={login}/>}/>
 					<Route path="/register" element={<RegisterPage/>}/>
 				</Routes>
 			</Layout>
 		)
 	}
 	return (
-		<Layout logout={logout} appUser={appUser}>
+		<Layout logout={logout} isLoggedIn={isLoggedIn}>
 			{
 				appUser?.role === "ADMIN" && <Routes>
 					<Route path="/login" element={<LoginPage login={login}/>}/>
