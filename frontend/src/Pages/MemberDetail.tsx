@@ -50,7 +50,7 @@ export default function MemberDetail() {
 				<span>Mitgliedsnr.: {memberId}</span>
 				<span>Adresse: <br/>{address.street}<br/> {address.zip} {address.city}</span>
 				<span>Tel: {phoneNumber}</span>
-				<span>E-Mail: {email}</span>
+				<span>E-Mail: <a href={`mailto:${email}`}>{email}</a></span>
 				<span>Geburtstag: {new Date(birthday).toLocaleDateString()}</span>
 				<ButtonBox>
 					<button onClick={() => setModal(true)}><EditNoteIcon fontSize="large"/></button>

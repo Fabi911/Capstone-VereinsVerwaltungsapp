@@ -39,7 +39,12 @@ export default function MembersOverview() {
 		},
 		{field: 'name', headerName: 'Vorname', width: 150},
 		{field: 'lastName', headerName: 'Nachname', width: 150},
-		{field: 'email', headerName: 'E-Mail', width: 250},
+		{
+			field: 'email', headerName: 'E-Mail', width: 250,
+			renderCell: (params: GridRenderCellParams) => (
+				<a href={`mailto:${params.row.email}`}>{params.row.email}</a>
+			)
+		},
 		{field: 'phoneNumber', headerName: 'Telefon', width: 200},
 		{
 			field: 'address',
