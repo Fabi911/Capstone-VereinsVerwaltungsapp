@@ -1,5 +1,6 @@
 import axios from "axios";
 import {FormEvent, useState} from "react";
+import styled from "@emotion/styled";
 
 export default function RegisterPage() {
 	const [username, setUsername] = useState<string>("");
@@ -27,11 +28,21 @@ export default function RegisterPage() {
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<Form onSubmit={handleSubmit}>
 			<input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
 			<input type="password" placeholder="Password" value={password}
 			       onChange={(e) => setPassword(e.target.value)}/>
 			<button type="submit">Registrieren</button>
-		</form>
+		</Form>
 	)
 }
+
+// Styles
+
+const Form = styled.form`
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	width: 200px;
+	margin: 0 auto;
+`;

@@ -60,4 +60,8 @@ public class AppuserService {
 		appUser.setRole(AppuserRole.valueOf(appUserResponse.role().name()));
 		return appuserRepository.save(appUser);
 	}
+
+	public void deleteUser(String id) {
+		appuserRepository.deleteById(id);
+	}
 }

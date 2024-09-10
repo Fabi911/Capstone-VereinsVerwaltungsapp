@@ -3,7 +3,6 @@ import Header from "./Header.tsx";
 import {ReactNode} from "react";
 import {AppUser} from "../../App.tsx";
 
-
 type LayoutProps = {
 	children: ReactNode;
 	logout: () => void;

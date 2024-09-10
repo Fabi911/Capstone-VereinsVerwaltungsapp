@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {AppUser} from "../../App.tsx";
 import axios from "axios";
+import styled from "@emotion/styled";
 
 export default function UsersList() {
 	const [users, setUsers] = useState<AppUser[]>([]);
@@ -26,14 +27,26 @@ export default function UsersList() {
 			setError("Failed to update user role.");
 		}
 	};
+
+	function deleteUser(userId: string) {
+		axios.delete(`/api/users/${userId}`)
+			.then(() => {
+				setUsers(prevUsers => prevUsers.filter(u => u.id !== userId));
+			})
+			.catch(e => {
+				console.error(e);
+				setError("Failed to delete user.");
+			});
+	}
+
 	useEffect(() => {
 		fetchUsers();
 	}, []);
 	return (
-		<>
-			<h1>Users</h1>
+		<Container>
+			<h3>Users</h3>
 			{error && <p style={{color: "red"}}>{error}</p>}
-			<table>
+			<Table>
 				<thead>
 				<tr>
 					<th>Username</th>
@@ -53,10 +66,33 @@ export default function UsersList() {
 								<option value="USER">USER</option>
 							</select>
 						</td>
+						<td>
+							<button onClick={() => deleteUser(user.id)}>Delete</button>
+						</td>
 					</tr>
 				))}
 				</tbody>
-			</table>
-		</>
+			</Table>
+		</Container>
 	)
 }
+
+// Styles
+
+const Container = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	width: 300px;
+	margin: 0 auto;
+`;
+
+const Table = styled.table`
+	width: 100%;
+	border-collapse: collapse;
+	
+	th, td {
+		border: 1px solid black;
+		padding: 0.5rem;
+	}
+`;

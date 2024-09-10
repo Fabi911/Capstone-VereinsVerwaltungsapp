@@ -52,4 +52,10 @@ public class AppuserController {
 	public AppUser updateRole(@PathVariable String id, @RequestBody AppUserResponse appUserResponse) {
 		return appuserService.updateRole(id, appUserResponse);
 	}
+
+	@DeleteMapping("{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteUser(@PathVariable String id) {
+		appuserService.deleteUser(id);
+	}
 }
