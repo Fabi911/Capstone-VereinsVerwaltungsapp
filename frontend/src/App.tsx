@@ -61,7 +61,7 @@ export default function App() {
 				{
 					appUser?.role === "ADMIN" && <Routes>
 						<Route path="/login" element={<LoginPage login={login}/>}/>
-						<Route path="/" element={<Dashboard/>}/>
+						<Route path="/" element={<Dashboard appUser={appUser}/>}/>
 						<Route path="/members" element={<MembersOverview/>}/>
 						<Route path="/members/:id" element={<MemberDetail/>}/>
 						<Route path="/register" element={<RegisterPage/>}/>
