@@ -40,7 +40,7 @@ public class SecurityConfig {
 								.requestMatchers(HttpMethod.GET, apiMembers).hasRole(AppuserRole.ADMIN.name())
 								.requestMatchers(HttpMethod.POST, apiMembers).hasRole(AppuserRole.ADMIN.name())
 								.requestMatchers(HttpMethod.PUT, apiMembers).hasRole(AppuserRole.ADMIN.name())
-								.anyRequest().authenticated()
+								.anyRequest().permitAll()
 				)
 				.httpBasic(httpSecurityHttpBasicConfigurer -> httpSecurityHttpBasicConfigurer.authenticationEntryPoint((request, response, authException) -> response.sendError(401)));
 		return http.build();
