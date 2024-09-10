@@ -35,6 +35,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests(authorizeRequests ->
 						authorizeRequests
 								.requestMatchers(HttpMethod.POST, "api/users/register").permitAll()
+								.requestMatchers(HttpMethod.POST, "api/users/login").permitAll()
 								.requestMatchers(HttpMethod.DELETE, apiMembers).hasRole(AppuserRole.ADMIN.name())
 								.requestMatchers(HttpMethod.GET, apiMembers).hasRole(AppuserRole.ADMIN.name())
 								.requestMatchers(HttpMethod.POST, apiMembers).hasRole(AppuserRole.ADMIN.name())
