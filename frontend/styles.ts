@@ -20,12 +20,17 @@ export const globalStyles = css`
         display: flex;
         flex-direction: column;
         align-items: center;
+       
 
     }
 
     .noDecoration {
         text-decoration: none;
         color: black;
+    }
+	
+	main {
+		width: 90vw;
     }
 
 `;
