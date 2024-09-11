@@ -79,12 +79,14 @@ export default function MemberDetail() {
 }
 // Styling
 const DetailsBox = styled.div`
-    width: 50vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /*background-color: #808080;*/
-    padding: 1rem;
+    background-color: var(--box-color);
+	box-shadow: var(--box-shadow);
+	border-radius: 1rem;
+    padding: 5rem 10rem;
+
 `;
 const BackLink = styled(Link)`
     align-self: flex-start;
@@ -93,7 +95,6 @@ const BackLink = styled(Link)`
 
 `;
 const MemberBox = styled.div`
-    width: 75%;
     display: flex;
     flex-direction: column;
     gap: 1rem;

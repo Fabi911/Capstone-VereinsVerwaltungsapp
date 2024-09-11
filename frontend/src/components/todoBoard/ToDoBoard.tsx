@@ -34,7 +34,7 @@ export default function ToDoBoard() {
 		return <h1>Loading...</h1>
 	}
 	return (
-		<div>
+		<Container>
 			<h2>Aufgaben</h2>
 			<AddTask newTask={newTask} setNewTask={setNewTask} addTask={addTask}/>
 			<List>
@@ -42,7 +42,7 @@ export default function ToDoBoard() {
 					<ToDoTask key={todo.id} todo={todo} fetchToDo={fetchToDoList}/>
 				)}
 			</List>
-		</div>
+		</Container>
 	)
 }
 
@@ -51,4 +51,11 @@ export default function ToDoBoard() {
 const List = styled.div`
 	display: flex;
 	flex-direction: column-reverse;
+`;
+
+const Container = styled.div`
+    background-color: var(--box-color);
+    box-shadow: var(--box-shadow);
+    border-radius: 1rem;
+    padding: 5rem 10rem;
 `;

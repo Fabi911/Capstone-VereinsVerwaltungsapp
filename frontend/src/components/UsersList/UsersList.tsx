@@ -85,6 +85,10 @@ const Container = styled.div`
 	gap: 1rem;
 	width: 300px;
 	margin: 0 ;
+    background-color: var(--box-color);
+    box-shadow: var(--box-shadow);
+    border-radius: 1rem;
+    padding: 5rem 10rem;
 `;
 
 const Table = styled.table`

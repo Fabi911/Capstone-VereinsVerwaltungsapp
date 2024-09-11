@@ -11,11 +11,11 @@ export default function Footer() {
 // Styles
 
 const StyledFooter = styled.header`
-    background-color: #333;
+    background-color: #959494;
     color: white;
     padding: 1rem;
     text-align: center;
-    width: 100%;
+    width: 100vw;
     position: fixed;
     bottom: 0;
     left: 0;
