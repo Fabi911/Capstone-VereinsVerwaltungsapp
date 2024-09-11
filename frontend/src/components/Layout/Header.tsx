@@ -1,31 +1,44 @@
 import {Link} from "react-router-dom";
 import styled from "@emotion/styled";
+import DrawerMenu from "../menu/DrawerMenu.tsx";
+import LogoutIcon from '@mui/icons-material/Logout';
+
 
 
 export default function Header({logout, appUser}: { logout: () => void, appUser: { role: string } | null }) {
 	return (
 		<StyledHeader>
-			<StyledLink to={"/"}><h1>Vereinsverwaltung</h1></StyledLink>
+			<DrawerMenu/>
+			<h1>Vereinsverwaltung</h1>
 			{appUser?.role &&
-				<StyledLink to={"/"} onClick={logout}>Logout</StyledLink>}
+				<StyledLink to={"/"} onClick={logout}><LogoutIcon fontSize="large"/><br/>Ausloggen</StyledLink>}
 		</StyledHeader>
 	);
 }
 // Styles
 const StyledHeader = styled.header`
-    background-color: #333;
+    background-color: #959494;
     color: white;
-    padding: 1rem;
+    padding: 0;
     text-align: center;
-    width: 100%;
+    width: 100vw;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 100;
     box-shadow: 1rem 2rem 1rem rgba(0, 0, 0, 0.2);
     margin: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 `;
 const StyledLink = styled(Link)`
     color: white;
     text-decoration: none;
+    padding: 0.6rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    &:hover {
+        background-color: #222;
+    }
 `;
