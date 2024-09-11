@@ -44,7 +44,7 @@ export default function UsersList() {
 	}, []);
 	return (
 		<Container>
-			<h3>Users</h3>
+			<h2>Benutzer</h2>
 			{error && <p style={{color: "red"}}>{error}</p>}
 			<Table>
 				<thead>
@@ -84,7 +84,7 @@ const Container = styled.div`
 	flex-direction: column;
 	gap: 1rem;
 	width: 300px;
-	margin: 0 auto;
+	margin: 0 ;
 `;
 
 const Table = styled.table`
