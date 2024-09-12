@@ -2,10 +2,11 @@ import {Booking} from "../../../types/booking.ts";
 import {DataGrid, GridColDef, GridRenderCellParams} from "@mui/x-data-grid";
 import styled from "@emotion/styled";
 
-type ExpenseProps = {
+type IncomeProps = {
 	cashData: Booking[];
+	type: string;
 }
-export default function ExpenseBoard({cashData}: ExpenseProps) {
+export default function BookingTable({cashData,type}: IncomeProps) {
 	const columns: GridColDef[] = [
 		{field: 'type', headerName: 'Buchungstyp', width: 150},
 		{field: 'description', headerName: 'Buchungstext', width: 250},
@@ -22,8 +23,8 @@ export default function ExpenseBoard({cashData}: ExpenseProps) {
 	];
 	return (
 		<div>
-			<h1>Ausgaben</h1>
-			<StyledDataGrid columns={columns} rows={cashData.filter((booking) => booking.type === 'EXPENSE')} getRowId={(row) => row.id }
+			<h1>{type}</h1>
+			<StyledDataGrid columns={columns} rows={cashData} getRowId={(row) => row.id }
 			                initialState={{
 				                pagination: {
 					                paginationModel: {
@@ -35,7 +36,6 @@ export default function ExpenseBoard({cashData}: ExpenseProps) {
 		</div>
 	)
 }
-// Styles
 const StyledDataGrid = styled(DataGrid)`
     margin-top: 2rem;
 `;

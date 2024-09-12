@@ -1,8 +1,7 @@
 import {useEffect, useState} from "react";
 import {Booking} from "../../types/booking.ts";
 import axios from "axios";
-import ExpenseBoard from "./expense/ExpenseBoard.tsx";
-import IncomeBoard from "./income/IncomeBoard.tsx";
+import BookingTable from "./BookingTable.tsx";
 
 export default function CashJournal() {
 	const[cashData, setCashData] = useState<Booking[]|null>(null);
@@ -29,8 +28,8 @@ export default function CashJournal() {
 
 	return (
 	<div>
-		<ExpenseBoard cashData={cashData} />
-		<IncomeBoard cashData={cashData} />
+		<BookingTable cashData={cashData.filter((booking) => booking.type === 'EXPENSE')} type={"Ausgaben"} />
+		<BookingTable cashData={cashData.filter((booking) => booking.type === 'INCOME')} type={"Einnahmen"} />
 	</div>
 		)
 
