@@ -7,6 +7,7 @@ import LoginPage from "./Pages/LoginPage.tsx";
 import RegisterPage from "./Pages/RegisterPage.tsx";
 import axios from "axios";
 import {useEffect, useState} from "react";
+import CashJournal from "./components/cashJournal/CashJournal.tsx";
 
 export type AppUser = {
 	id: string
@@ -65,6 +66,7 @@ export default function App() {
 						<Route path="/members" element={<MembersOverview/>}/>
 						<Route path="/members/:id" element={<MemberDetail/>}/>
 						<Route path="/register" element={<RegisterPage/>}/>
+						<Route path="/cash-journal" element={<CashJournal/>}/>
 					</Routes>
 				}
 				{
