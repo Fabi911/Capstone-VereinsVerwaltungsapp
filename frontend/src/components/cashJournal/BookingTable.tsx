@@ -1,4 +1,4 @@
-import {Booking} from "../../../types/booking.ts";
+import {Booking} from "../../types/booking.ts";
 import {DataGrid, GridColDef, GridRenderCellParams} from "@mui/x-data-grid";
 import styled from "@emotion/styled";
 
@@ -23,7 +23,7 @@ export default function BookingTable({cashData,type}: IncomeProps) {
 	];
 	return (
 		<div>
-			<h1>{type}</h1>
+			<h3>{type}</h3>
 			<StyledDataGrid columns={columns} rows={cashData} getRowId={(row) => row.id }
 			                initialState={{
 				                pagination: {
