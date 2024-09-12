@@ -3,35 +3,39 @@ package de.webdev.backend.cashjournal.controller;
 import de.webdev.backend.cashjournal.models.Booking;
 import de.webdev.backend.cashjournal.service.CashJournalService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/cash-journal")
+@RequiredArgsConstructor
 public class CashJournalController {
 
 	private final CashJournalService cashJournalService;
 
+	@GetMapping
 	public List<Booking> getAllCashJournals() {
 		return cashJournalService.getAllCashJournals();
 	}
 
-	public Booking getCashJournalById(String id) {
+	@GetMapping("/{id}")
+	public Booking getCashJournalById(@PathVariable String id) {
 		return cashJournalService.getCashJournalById(id);
 	}
 
-	public Booking saveCashJournal(Booking booking) {
-		return cashJournalService.saveCashJournal(booking);
+	@PostMapping
+	public Booking saveCashJournal(@RequestBody Booking booking) {
+		return cashJournalService.saveBooking(booking);
 	}
 
-	public void deleteCashJournal(String id) {
+	@DeleteMapping("/{id}")
+	public void deleteCashJournal(@PathVariable String id) {
 		cashJournalService.deleteCashJournal(id);
 	}
 
-	public Booking updateBooking(String id, Booking booking) {
+	@PutMapping("/{id}")
+	public Booking updateBooking(@PathVariable String id,@RequestBody Booking booking) {
 		return cashJournalService.updateBooking(id, booking);
 	}
 }

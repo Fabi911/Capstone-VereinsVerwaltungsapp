@@ -1,12 +1,14 @@
 package de.webdev.backend.cashjournal.service;
 
 import de.webdev.backend.cashjournal.models.Booking;
+
 import de.webdev.backend.cashjournal.repository.CashJournalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +24,7 @@ public class CashJournalService {
 		return cashJournalRepository.findById(id).orElse(null);
 	}
 
-	public Booking saveCashJournal(Booking booking) {
+	public Booking saveBooking(Booking booking) {
 		return cashJournalRepository.save(booking);
 	}
 
@@ -33,13 +35,16 @@ public class CashJournalService {
 	public Booking updateBooking(String id, Booking booking) {
 		return cashJournalRepository.findById(id)
 				.map(existingBooking -> {
+					// Create a new Booking instance with updated values
 					Booking updatedBooking = new Booking(
-							existingBooking.id(),
+							id,
 							booking.date(),
 							booking.description(),
 							booking.amount(),
 							booking.category(),
-							booking.type());
+							booking.type()
+					);
+					// Save the updated booking
 					return cashJournalRepository.save(updatedBooking);
 				})
 				.orElseThrow(() -> new NoSuchElementException("Booking with ID " + id + " not found"));
