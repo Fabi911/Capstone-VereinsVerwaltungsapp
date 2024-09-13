@@ -39,34 +39,34 @@ export default function AddBookingForm() {
 
 	return (
 		<div>
-		<form onSubmit={handleSubmit}>
-			<h1>Add Booking</h1>
-			<div className="form-group">
-				<label htmlFor="type">Buchungstyp</label>
-				<select id="type" name="type" className="form-control" required>
-					<option value="income">Income</option>
-					<option value="expense">Expense</option>
-				</select>
-			</div>
-			<div className="form-group">
-				<label htmlFor="description">Buchungstext</label>
-				<input type="text" id="description" name="description" className="form-control" required/>
-			</div>
-			<div className="form-group">
-				<label htmlFor="category">Kategorie</label>
-				<input type="text" id="category" name="category" className="form-control" required/>
-			</div>
-			<div className="form-group">
-				<label htmlFor="date">Buchungsdatum</label>
-				<input type="date" id="date" name="date" className="form-control" required/>
-			</div>
-			<div className="form-group">
-				<label htmlFor="amount">Betrag</label>
-				<input type="number" step="0.01" id="amount" name="amount" className="form-control" required/>
-			</div>
-			<button type="submit" className="btn btn-primary">Add</button>
-		</form>
+			<form onSubmit={handleSubmit}>
+				<h1>Add Booking</h1>
+				<div className="form-group">
+					<label htmlFor="type">Buchungstyp</label>
+					<select id="type" name="type" className="form-control" required>
+						<option value="income">Income</option>
+						<option value="expense">Expense</option>
+					</select>
+				</div>
+				<div className="form-group">
+					<label htmlFor="description">Buchungstext</label>
+					<input type="text" id="description" name="description" className="form-control" required/>
+				</div>
+				<div className="form-group">
+					<label htmlFor="category">Kategorie</label>
+					<input type="text" id="category" name="category" className="form-control" required/>
+				</div>
+				<div className="form-group">
+					<label htmlFor="date">Buchungsdatum</label>
+					<input type="date" id="date" name="date" className="form-control" required/>
+				</div>
+				<div className="form-group">
+					<label htmlFor="amount">Betrag</label>
+					<input type="number" step="0.01" id="amount" name="amount" className="form-control" required/>
+				</div>
+				<button type="submit" className="btn btn-primary">Hinzufügen</button>
+			</form>
 
-	</div>
+		</div>
 	)
 }
