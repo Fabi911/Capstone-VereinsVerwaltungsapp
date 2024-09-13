@@ -8,3 +8,11 @@ export type Booking = {
 }
 
 type Type = 'INCOME' | 'EXPENSE';
+
+export type BookingForm = {
+	date: Date;
+	description: string;
+	amount: number;
+	category: string;
+	type: Type;
+}

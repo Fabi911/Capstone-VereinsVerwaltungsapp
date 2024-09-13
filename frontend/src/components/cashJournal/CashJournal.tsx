@@ -5,6 +5,7 @@ import BookingTable from "./BookingTable.tsx";
 import Skeleton from "@mui/material/Skeleton";
 import styled from "@emotion/styled";
 import {Stack} from "@mui/material";
+import {Link} from "react-router-dom";
 
 export default function CashJournal() {
 	const [cashData, setCashData] = useState<Booking[] | null>(null);
@@ -42,6 +43,7 @@ export default function CashJournal() {
 	return (
 		<div>
 			<h1>Kassenbuch</h1>
+			<Link to="/cash-journal/add">Buchung hinzufügen</Link>
 			<BookingTable cashData={cashData.filter((booking) => booking.type === 'EXPENSE')} type={"Ausgaben"}/>
 			<BookingTable cashData={cashData.filter((booking) => booking.type === 'INCOME')} type={"Einnahmen"}/>
 		</div>
