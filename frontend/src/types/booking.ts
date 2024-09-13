@@ -5,6 +5,7 @@ export type Booking = {
 	amount: number;
 	category: string;
 	type: Type;
+	fileUrl?: string;
 }
 
 export type Type = 'INCOME' | 'EXPENSE';
@@ -15,4 +16,5 @@ export type BookingForm = {
 	amount: number;
 	category: string;
 	type: Type;
+	fileUrl?: string;
 }

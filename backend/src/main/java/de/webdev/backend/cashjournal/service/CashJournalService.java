@@ -42,7 +42,8 @@ public class CashJournalService {
 							booking.description(),
 							booking.amount(),
 							booking.category(),
-							booking.type()
+							booking.type(),
+							booking.fileUrl()
 					);
 					// Save the updated booking
 					return cashJournalRepository.save(updatedBooking);

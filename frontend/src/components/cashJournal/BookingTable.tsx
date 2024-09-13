@@ -20,6 +20,7 @@ export default function BookingTable({cashData,type}: IncomeProps) {
 			renderCell: (params: GridRenderCellParams) => new Date(params.row.date).toLocaleDateString()
 		},
 		{field: 'amount', headerName: 'Betrag', width: 120},
+		{field:'fileUrl', headerName: 'Beleg', width: 150, }
 	];
 	return (
 		<div>
