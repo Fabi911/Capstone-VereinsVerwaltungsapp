@@ -22,9 +22,9 @@ class CashJournalServiceTest {
 	void getAllCashJournals() {
 		// Given
 		List<Booking> bookings = new ArrayList<>();
-		bookings.add(new Booking("1", LocalDate.parse("2021-01-01"), "Test", 100, "Test", Type.INCOME));
-		bookings.add(new Booking("2", LocalDate.parse("2021-01-02"), "Test", 100, "Test", Type.INCOME));
-		bookings.add(new Booking("3", LocalDate.parse("2021-01-03"), "Test", 100, "Test", Type.INCOME));
+		bookings.add(new Booking("1", LocalDate.parse("2021-01-01"), "Test", 100, "Test", Type.INCOME, "fileUrl"));
+		bookings.add(new Booking("2", LocalDate.parse("2021-01-02"), "Test", 100, "Test", Type.INCOME, "fileUrl"));
+		bookings.add(new Booking("3", LocalDate.parse("2021-01-03"), "Test", 100, "Test", Type.INCOME, "fileUrl"));
 		when(cashJournalRepository.findAll()).thenReturn(bookings);
 
 		// When
@@ -38,7 +38,7 @@ class CashJournalServiceTest {
 	@Test
 	void getCashJournalById() {
 		// Given
-		Booking booking = new Booking("1", LocalDate.parse("2021-01-01"), "Test", 100, "Test", Type.INCOME);
+		Booking booking = new Booking("1", LocalDate.parse("2021-01-01"), "Test", 100, "Test", Type.INCOME,"fileUrl");
 		when(cashJournalRepository.findById("1")).thenReturn(java.util.Optional.of(booking));
 
 		// When
@@ -52,7 +52,7 @@ class CashJournalServiceTest {
 	@Test
 	void saveBooking() {
 		// Given
-		Booking booking = new Booking("1", LocalDate.parse("2021-01-01"), "Test", 100, "Test", Type.INCOME);
+		Booking booking = new Booking("1", LocalDate.parse("2021-01-01"), "Test", 100, "Test", Type.INCOME,"fileUrl");
 		when(cashJournalRepository.save(booking)).thenReturn(booking);
 
 		// When
@@ -80,8 +80,9 @@ class CashJournalServiceTest {
 	@Test
 	void updateCashJournal() {
 		// Given
-		Booking originalBooking = new Booking("1", LocalDate.parse("2021-01-01"), "Test", 100, "Test", Type.INCOME);
-		Booking updatedBooking = new Booking("1", LocalDate.parse("2021-01-02"), "Updated Test", 200, "Updated Test", Type.EXPENSE);
+		Booking originalBooking = new Booking("1", LocalDate.parse("2021-01-01"), "Test", 100, "Test", Type.INCOME,"fileUrl");
+		Booking updatedBooking = new Booking("1", LocalDate.parse("2021-01-02"), "Updated Test", 200, "Updated Test",
+				Type.EXPENSE,"fileUrl");
 		when(cashJournalRepository.findById("1")).thenReturn(java.util.Optional.of(originalBooking));
 		when(cashJournalRepository.save(updatedBooking)).thenReturn(updatedBooking);
 
