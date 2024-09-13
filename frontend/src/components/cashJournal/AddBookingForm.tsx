@@ -1,17 +1,22 @@
 import axios from "axios";
-
 import {useNavigate} from "react-router-dom";
-import {BookingForm} from "../../types/booking.ts";
+import {BookingForm, Type} from "../../types/booking.ts";
 
 export default function AddBookingForm() {
 	const navigate = useNavigate();
-
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const form = event.currentTarget;
 		const formData = new FormData(form);
 		const data = Object.fromEntries(formData);
-		postBooking(data);
+		const bookingData: BookingForm = {
+			date: new Date(data.date as string),
+			description: data.description as string,
+			amount: parseFloat(data.amount as string),
+			category: data.category as string,
+			type: (data.type as string).toUpperCase() as Type
+		};
+		postBooking(bookingData);
 		form.reset();
 		navigate('/cash-journal');
 	}

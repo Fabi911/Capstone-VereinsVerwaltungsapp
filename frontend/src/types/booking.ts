@@ -7,7 +7,7 @@ export type Booking = {
 	type: Type;
 }
 
-type Type = 'INCOME' | 'EXPENSE';
+export type Type = 'INCOME' | 'EXPENSE';
 
 export type BookingForm = {
 	date: Date;
