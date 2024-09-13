@@ -33,20 +33,12 @@ public class CashJournalService {
 	}
 
 	public Booking updateBooking(String id, Booking booking) {
-		return cashJournalRepository.findById(id)
-				.map(existingBooking -> {
-					// Create a new Booking instance with updated values
-					Booking updatedBooking = new Booking(
-							id,
-							booking.date(),
-							booking.description(),
-							booking.amount(),
-							booking.category(),
-							booking.type()
-					);
-					// Save the updated booking
-					return cashJournalRepository.save(updatedBooking);
-				})
-				.orElseThrow(() -> new NoSuchElementException("Booking with ID " + id + " not found"));
+		Booking existingBooking = cashJournalRepository.findById(id).orElseThrow(NoSuchElementException::new);
+		return cashJournalRepository.save(existingBooking
+				.withDate(booking.date())
+				.withDescription(booking.description())
+				.withAmount(booking.amount())
+				.withCategory(booking.category())
+				.withType(booking.type()));
 	}
 }
