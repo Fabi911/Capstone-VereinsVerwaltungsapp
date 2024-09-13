@@ -8,14 +8,15 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class CashJournalServiceTest {
 
-	private final CashJournalRepository cashJournalRepository=mock(CashJournalRepository.class);
+	private final CashJournalRepository cashJournalRepository = mock(CashJournalRepository.class);
+
+	private final CashJournalService cashJournalService = new CashJournalService(cashJournalRepository);
 
 	@Test
 	void getAllCashJournals() {
@@ -27,7 +28,7 @@ class CashJournalServiceTest {
 		when(cashJournalRepository.findAll()).thenReturn(bookings);
 
 		// When
-		List<Booking> actual = cashJournalRepository.findAll();
+		List<Booking> actual = cashJournalService.getAllCashJournals();
 
 		// Then
 		assertEquals(bookings, actual);
@@ -41,7 +42,7 @@ class CashJournalServiceTest {
 		when(cashJournalRepository.findById("1")).thenReturn(java.util.Optional.of(booking));
 
 		// When
-		Booking actual = cashJournalRepository.findById("1").orElse(null);
+		Booking actual = cashJournalService.getCashJournalById("1");
 
 		// Then
 		assertEquals(booking, actual);
@@ -55,7 +56,7 @@ class CashJournalServiceTest {
 		when(cashJournalRepository.save(booking)).thenReturn(booking);
 
 		// When
-		Booking actual = cashJournalRepository.save(booking);
+		Booking actual = cashJournalService.saveBooking(booking);
 
 		// Then
 		assertEquals(booking, actual);
@@ -68,39 +69,28 @@ class CashJournalServiceTest {
 		String id = "1";
 
 		// When
-		cashJournalRepository.deleteById(id);
+		cashJournalService.deleteCashJournal(id);
 
 		// Then
 
 		verify(cashJournalRepository).deleteById(id);
 	}
 
+
 	@Test
-	void updateBooking() {
+	void updateCashJournal() {
 		// Given
-		Booking booking = new Booking("1", LocalDate.parse("2021-01-01"), "Test", 100, "Test", Type.INCOME);
-		when(cashJournalRepository.findById("1")).thenReturn(java.util.Optional.of(booking));
-		when(cashJournalRepository.save(booking)).thenReturn(booking);
+		Booking originalBooking = new Booking("1", LocalDate.parse("2021-01-01"), "Test", 100, "Test", Type.INCOME);
+		Booking updatedBooking = new Booking("1", LocalDate.parse("2021-01-02"), "Updated Test", 200, "Updated Test", Type.EXPENSE);
+		when(cashJournalRepository.findById("1")).thenReturn(java.util.Optional.of(originalBooking));
+		when(cashJournalRepository.save(updatedBooking)).thenReturn(updatedBooking);
 
 		// When
-		Booking actual = cashJournalRepository.findById("1")
-				.map(existingBooking -> {
-					Booking updatedBooking = new Booking(
-							"1",
-							LocalDate.parse("2021-01-01"),
-							"Test",
-							100,
-							"Test",
-							Type.INCOME
-					);
-					return cashJournalRepository.save(updatedBooking);
-				})
-				.orElseThrow(() -> new NoSuchElementException("Booking with ID 1 not found"));
+		Booking actual = cashJournalService.updateBooking("1", updatedBooking);
 
 		// Then
-		assertEquals(booking, actual);
+		assertEquals(updatedBooking, actual);
 		verify(cashJournalRepository).findById("1");
-		verify(cashJournalRepository).save(booking);
+		verify(cashJournalRepository).save(updatedBooking);
 	}
-
 }
