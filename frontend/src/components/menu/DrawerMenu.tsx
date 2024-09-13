@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import styled from "@emotion/styled";
 
 export default function DrawerMenu() {
@@ -17,6 +18,7 @@ export default function DrawerMenu() {
 			<ListStyled>
 				<li><LinkStyled to={"/"}><HomeIcon fontSize="large"/> Home</LinkStyled></li>
 				<li><LinkStyled to={"/members"}><PeopleIcon fontSize="large"/> Mitgliederübersicht </LinkStyled></li>
+				<li><LinkStyled to={"/cash-journal"}><AccountBalanceIcon fontSize="large"/> Kassenbuch </LinkStyled></li>
 
 			</ListStyled>
 

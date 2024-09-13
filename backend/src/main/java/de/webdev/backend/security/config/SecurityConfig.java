@@ -18,6 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
 	String apiMembers = "/api/members/**";
+	String cashJournal = "/api/cash-journal/**";
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -36,10 +37,20 @@ public class SecurityConfig {
 						authorizeRequests
 								.requestMatchers(HttpMethod.POST, "api/users/register").permitAll()
 								.requestMatchers(HttpMethod.POST, "api/users/login").permitAll()
+								// Members
 								.requestMatchers(HttpMethod.DELETE, apiMembers).hasRole(AppuserRole.ADMIN.name())
 								.requestMatchers(HttpMethod.GET, apiMembers).hasRole(AppuserRole.ADMIN.name())
 								.requestMatchers(HttpMethod.POST, apiMembers).hasRole(AppuserRole.ADMIN.name())
 								.requestMatchers(HttpMethod.PUT, apiMembers).hasRole(AppuserRole.ADMIN.name())
+								.requestMatchers(HttpMethod.DELETE, apiMembers).hasRole(AppuserRole.GROUP1.name())
+								.requestMatchers(HttpMethod.GET, apiMembers).hasRole(AppuserRole.GROUP1.name())
+								.requestMatchers(HttpMethod.POST, apiMembers).hasRole(AppuserRole.GROUP1.name())
+								.requestMatchers(HttpMethod.PUT, apiMembers).hasRole(AppuserRole.GROUP1.name())
+								//CashJournal
+								.requestMatchers(HttpMethod.DELETE, cashJournal).hasAnyRole(AppuserRole.ADMIN.name(), AppuserRole.GROUP1.name())
+								.requestMatchers(HttpMethod.GET, cashJournal).hasAnyRole(AppuserRole.ADMIN.name(), AppuserRole.GROUP1.name())
+								.requestMatchers(HttpMethod.PUT, cashJournal).hasAnyRole(AppuserRole.ADMIN.name(), AppuserRole.GROUP1.name())
+								.requestMatchers(HttpMethod.POST, cashJournal).hasAnyRole(AppuserRole.ADMIN.name(), AppuserRole.GROUP1.name())
 								.anyRequest().permitAll()
 				)
 				.httpBasic(httpSecurityHttpBasicConfigurer -> httpSecurityHttpBasicConfigurer.authenticationEntryPoint((request, response, authException) -> response.sendError(401)));

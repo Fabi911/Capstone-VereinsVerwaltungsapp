@@ -2,5 +2,7 @@ package de.webdev.backend.security;
 
 public enum AppuserRole {
 	USER,
-	ADMIN
+	ADMIN,
+	GROUP1,
+	GROUP2
 }
