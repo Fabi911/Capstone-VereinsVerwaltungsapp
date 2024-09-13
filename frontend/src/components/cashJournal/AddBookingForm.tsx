@@ -1,7 +1,6 @@
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {BookingForm, Type} from "../../types/booking.ts";
-import FileUpload from "./FileUpload.tsx";
 
 export default function AddBookingForm() {
 	const navigate = useNavigate();
@@ -68,7 +67,6 @@ export default function AddBookingForm() {
 			<button type="submit" className="btn btn-primary">Add</button>
 		</form>
 
-		<FileUpload />
 	</div>
 	)
 }
