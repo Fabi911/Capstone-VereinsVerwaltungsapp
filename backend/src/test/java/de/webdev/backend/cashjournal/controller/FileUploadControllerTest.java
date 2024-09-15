@@ -30,7 +30,7 @@ class FileUploadControllerTest {
 	@DirtiesContext
 	@WithMockUser(roles = "ADMIN")
 	void uploadFile_shouldReturnFileUrl_whenUploadFile() throws Exception {
-		Path filePath = Paths.get("documents/test.txt");
+		Path filePath = Paths.get("src/test/resources/documents/test.txt");
 		Files.createDirectories(filePath.getParent());
 		Files.write(filePath, "Test content".getBytes());
 
