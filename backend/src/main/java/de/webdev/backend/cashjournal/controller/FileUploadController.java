@@ -1,5 +1,6 @@
 package de.webdev.backend.cashjournal.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,8 +17,8 @@ import java.nio.file.Paths;
 @RequestMapping("/api/files")
 public class FileUploadController {
 
-	private static final String UPLOAD_DIR = "/Users/fabian/Application_development/Bootcamps/java-development" +
-			"/capstone-projects/documents/";
+	@Value("${file.upload-dir}")
+	private String UPLOAD_DIR;
 
 	@PostMapping("/upload")
 	public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
