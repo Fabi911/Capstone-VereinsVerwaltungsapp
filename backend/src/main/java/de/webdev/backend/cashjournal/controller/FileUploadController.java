@@ -18,16 +18,16 @@ import java.nio.file.Paths;
 public class FileUploadController {
 
 	@Value("${file.upload-dir}")
-	private String UPLOAD_DIR;
+	private  String uploadDir2;
 
 	@PostMapping("/upload")
 	public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-		File uploadDir = new File(UPLOAD_DIR);
+		File uploadDir = new File(uploadDir2);
 		if (!uploadDir.exists()) {
 			uploadDir.mkdirs();
 		}
 		String fileName = file.getOriginalFilename();
-			Path filePath = Paths.get(UPLOAD_DIR, fileName);
+			Path filePath = Paths.get(uploadDir2, fileName);
 			file.transferTo(filePath.toFile());
 			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
 					.path("/api/files/download/")
@@ -39,7 +39,7 @@ public class FileUploadController {
 
 	@GetMapping("/download/{fileName:.+}")
 	public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) throws IOException {
-			Path filePath = Paths.get(UPLOAD_DIR, fileName);
+			Path filePath = Paths.get(uploadDir2, fileName);
 			byte[] fileContent = Files.readAllBytes(filePath);
 			return ResponseEntity.ok()
 					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
