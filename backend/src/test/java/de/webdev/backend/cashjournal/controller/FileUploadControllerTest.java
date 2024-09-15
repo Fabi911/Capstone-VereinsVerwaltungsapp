@@ -30,9 +30,9 @@ class FileUploadControllerTest {
 	@DirtiesContext
 	@WithMockUser(roles = "ADMIN")
 	void uploadFile_shouldReturnFileUrl_whenUploadFile() throws Exception {
-		Path filePath = Paths.get("src/test/resources/documents/test.txt");
-		Files.createDirectories(filePath.getParent());
-		Files.write(filePath, "Test content".getBytes());
+		Path testFilePath = Paths.get("/tmp/test/documents/test.txt");
+		Files.createDirectories(testFilePath.getParent());
+		Files.write(testFilePath, "Test content".getBytes());
 
 		MockMultipartFile file = new MockMultipartFile("file", "test.txt", "text/plain", "Test content".getBytes());
 		mockMvc.perform(MockMvcRequestBuilders.multipart("/api/files/upload")
@@ -41,16 +41,16 @@ class FileUploadControllerTest {
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("/api/files/download/test.txt")));
 
-		Files.deleteIfExists(filePath);
+		Files.deleteIfExists(testFilePath);
 	}
 
 	@Test
 	@DirtiesContext
 	@WithMockUser(roles = "ADMIN")
 	void downloadFile_shouldReturnFileContent_whenDownloadFile() throws Exception {
-		Path filePath = Paths.get("src/test/resources/documents/test.txt");
-		Files.createDirectories(filePath.getParent());
-		Files.write(filePath, "Test content".getBytes());
+		Path testFilePath = Paths.get("/tmp/test/documents/test.txt");
+		Files.createDirectories(testFilePath.getParent());
+		Files.write(testFilePath, "Test content".getBytes());
 
 		MockMultipartFile file = new MockMultipartFile("file", "test.txt", "text/plain", "Test content".getBytes());
 		mockMvc.perform(MockMvcRequestBuilders.multipart("/api/files/upload")
@@ -63,6 +63,6 @@ class FileUploadControllerTest {
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().string("Test content"));
 
-		Files.deleteIfExists(filePath);
+		Files.deleteIfExists(testFilePath);
 	}
 }
