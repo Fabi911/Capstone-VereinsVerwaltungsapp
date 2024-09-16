@@ -53,16 +53,18 @@ export default function App() {
 	useEffect(() => {
 		fetchMe();
 	}, []);
+
+	if(!appUser) {return (
+		<>
+			<Route path="/" element={<LoginPage login={login} />} />
+			<Route path="/register" element={<RegisterPage />} />
+		</>
+	)}
+
 	const isAuthorizedAdminGroup = appUser?.role === "ADMIN" || appUser?.role === "GROUP1";
 	return (
 		<Layout logout={logout} appUser={appUser}>
 			<Routes>
-				{!appUser && (
-					<>
-						<Route path="/" element={<LoginPage login={login} />} />
-						<Route path="/register" element={<RegisterPage />} />
-					</>
-				)}
 
 				{appUser && isAuthorizedAdminGroup && (
 					<>
