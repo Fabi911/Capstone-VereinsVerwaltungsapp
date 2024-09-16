@@ -54,10 +54,10 @@ export default function App() {
 	}, []);
 	if (!appUser) {
 		return (
-			<>
+			<Routes>
 				<Route path="/" element={<LoginPage login={login}/>}/>
 				<Route path="/register" element={<RegisterPage/>}/>
-			</>
+			</Routes>
 		);
 	} else {
 		const isAuthorizedAdminGroup = appUser?.role === "ADMIN" || appUser?.role === "GROUP1";
