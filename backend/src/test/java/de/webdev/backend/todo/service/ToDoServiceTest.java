@@ -32,7 +32,7 @@ class ToDoServiceTest {
 	@Test
 	void getToDoById() {
 		//GIVEN
-		ToDo toDo = new ToDo("123", "Test ToDo", ToDoStatus.OPEN);
+		ToDo toDo = new ToDo("123", "Test ToDo", ToDoStatus.OPEN, "John");
 		when(toDoRepository.findById("123")).thenReturn(java.util.Optional.of(toDo));
 
 		ToDoService toDoService = new ToDoService(toDoRepository);
@@ -43,9 +43,24 @@ class ToDoServiceTest {
 	}
 
 	@Test
+	void getToDosByAuthor() {
+		//GIVEN
+		ToDo toDo = new ToDo("123", "Test ToDo", ToDoStatus.OPEN, "John");
+		when(toDoRepository.findAll()).thenReturn(List.of(toDo));
+
+		ToDoService toDoService = new ToDoService(toDoRepository);
+		//WHEN
+		List<ToDo> actual = toDoService.getToDosByAuthor("John");
+		//THEN
+		assertEquals(1, actual.size());
+		assertEquals(toDo, actual.get(0));
+	}
+
+
+	@Test
 	void createToDo() {
 		//GIVEN
-		ToDo toDo = new ToDo("123", "Test ToDo", ToDoStatus.OPEN);
+		ToDo toDo = new ToDo("123", "Test ToDo", ToDoStatus.OPEN, "John");
 		when(toDoRepository.save(toDo)).thenReturn(toDo);
 
 		ToDoService toDoService = new ToDoService(toDoRepository);
@@ -59,7 +74,7 @@ class ToDoServiceTest {
 	void updateToDo() {
 		//GIVEN
 		String existingID="123";
-		ToDo updatedToDo=new ToDo("123456", "Test ToDo", ToDoStatus.OPEN);
+		ToDo updatedToDo=new ToDo("123456", "Test ToDo", ToDoStatus.OPEN, "John");
 		when(toDoRepository.existsById(existingID)).thenReturn(true);
 		doNothing().when(toDoRepository).deleteById(existingID);
 		when(toDoRepository.save(any(ToDo.class))).thenReturn(updatedToDo);
@@ -71,6 +86,7 @@ class ToDoServiceTest {
 		assertEquals("123456", actual.id());
 		assertEquals("Test ToDo", actual.description());
 		assertEquals(ToDoStatus.OPEN, actual.status());
+		assertEquals("John", actual.author());
 	}
 
 	@Test

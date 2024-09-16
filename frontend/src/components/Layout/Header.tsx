@@ -3,16 +3,23 @@ import styled from "@emotion/styled";
 import DrawerMenu from "../menu/DrawerMenu.tsx";
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
+import {AppUser} from "../../types/AppUser.ts";
 
-export default function Header({logout, appUser}: { logout: () => void, appUser: { role: string } | null }) {
+type HeaderProps = {
+	logout: () => void;
+	appUser: AppUser | null;
+};
+export default function Header({logout, appUser}: HeaderProps) {
+
 	return (
 		<StyledHeader>
 			<DrawerMenu/>
 			<h1>Vereinsverwaltung</h1>
-			{appUser?.role ?
-				<StyledLink to={"/"} onClick={logout}><LogoutIcon fontSize="large"/><br/>Ausloggen</StyledLink> :
-				<StyledLink to={"/"}><LoginIcon fontSize="large"/><br/>
-					Login</StyledLink>}
+			{appUser?.role &&
+				<StyledLink to={"/"} onClick={logout}><LogoutIcon fontSize="large"/><br/>Ausloggen<br/>Eingeloggt
+					als: {appUser.username}</StyledLink>
+			}
+			{!appUser?.role && <StyledLink to={"/"}><LoginIcon fontSize="large"/><br/> Login</StyledLink>}
 		</StyledHeader>
 	);
 }

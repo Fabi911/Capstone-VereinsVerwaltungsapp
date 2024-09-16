@@ -1,9 +1,12 @@
 import {useEffect, useState} from "react";
-import {AppUser} from "../../App.tsx";
+import {AppUser} from "../../types/AppUser";
 import axios from "axios";
 import styled from "@emotion/styled";
 
-export default function UsersList() {
+type UsersListProps = {
+	appUser: AppUser | null;
+}
+export default function UsersList({appUser}: UsersListProps) {
 	const [users, setUsers] = useState<AppUser[]>([]);
 	const [error, setError] = useState<string | null>(null);
 	const fetchUsers = async () => {
@@ -15,7 +18,7 @@ export default function UsersList() {
 			setError("Failed to fetch users.");
 		}
 	};
-	const updateUserRole = async (userId: string, newRole: "ADMIN" | "USER") => {
+	const updateUserRole = async (userId: string, newRole: "ADMIN" | "USER" | "GROUP1" | "GROUP2") => {
 		try {
 			const userToUpdate = users.find(u => u.id === userId);
 			if (userToUpdate) {
@@ -42,10 +45,11 @@ export default function UsersList() {
 	useEffect(() => {
 		fetchUsers();
 	}, []);
+
 	return (
 		<Container>
 			<h2>Benutzer</h2>
-			{error && <p style={{color: "red"}}>{error}</p>}
+			{error && <p>{error}</p>}
 			<Table>
 				<thead>
 				<tr>
@@ -54,49 +58,61 @@ export default function UsersList() {
 				</tr>
 				</thead>
 				<tbody>
-				{users.map(user => (
-					<tr key={user.id}>
-						<td>{user.username}</td>
-						<td>
-							<select
-								value={user.role}
-								onChange={e => updateUserRole(user.id, e.target.value as "ADMIN" | "USER")}
-							>
-								<option value="ADMIN">ADMIN</option>
-								<option value="USER">USER</option>
-							</select>
-						</td>
-						<td>
-							<button onClick={() => deleteUser(user.id)}>Delete</button>
-						</td>
-					</tr>
-				))}
+				{users
+					.filter(user => !(appUser?.role === "GROUP1" && user.role === "ADMIN"))
+					.map(user => (
+						<tr key={user.id}>
+							<td>{user.username}</td>
+							<td>
+								{appUser?.role === "ADMIN" ? (
+									<select
+										value={user.role}
+										onChange={e => updateUserRole(user.id, e.target.value as "ADMIN" | "USER" | "GROUP1" | "GROUP2")}
+									>
+										<option value="ADMIN">ADMIN</option>
+										<option value="GROUP1">GROUP1</option>
+										<option value="GROUP2">GROUP2</option>
+										<option value="USER">USER</option>
+									</select>
+								) : (
+									<select
+										value={user.role}
+										onChange={e => updateUserRole(user.id, e.target.value as "ADMIN" | "USER" | "GROUP1" | "GROUP2")}
+									>
+										<option value="GROUP1">GROUP1</option>
+										<option value="GROUP2">GROUP2</option>
+										<option value="USER">USER</option>
+									</select>
+								)}
+							</td>
+							<td>
+								<button onClick={() => deleteUser(user.id)}>Delete</button>
+							</td>
+						</tr>
+					))}
 				</tbody>
 			</Table>
 		</Container>
 	)
 }
-
 // Styles
-
 const Container = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-	width: 300px;
-	margin: 0 ;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 300px;
+    margin: 0;
     background-color: var(--box-color);
     box-shadow: var(--box-shadow);
     border-radius: 1rem;
     padding: 5rem 10rem;
 `;
-
 const Table = styled.table`
-	width: 100%;
-	border-collapse: collapse;
-	
-	th, td {
-		border: 1px solid black;
-		padding: 0.5rem;
-	}
+    width: 100%;
+    border-collapse: collapse;
+
+    th, td {
+        border: 1px solid black;
+        padding: 0.5rem;
+    }
 `;

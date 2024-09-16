@@ -1,7 +1,7 @@
 import Footer from "./Footer.tsx";
 import Header from "./Header.tsx";
 import {ReactNode} from "react";
-import {AppUser} from "../../App.tsx";
+import {AppUser} from "../../types/AppUser";
 
 
 type LayoutProps = {

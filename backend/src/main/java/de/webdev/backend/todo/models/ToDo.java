@@ -6,6 +6,7 @@ public record ToDo(
 		@MongoId
 		String id,
 		String description,
-		ToDoStatus status
+		ToDoStatus status,
+		String author
 ) {
 }

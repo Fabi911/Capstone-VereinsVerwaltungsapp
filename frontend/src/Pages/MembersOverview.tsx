@@ -71,9 +71,6 @@ export default function MembersOverview() {
 				member.lastName.toLowerCase().includes(lowerCaseSearch) ||
 				member.email.toLowerCase().includes(lowerCaseSearch) ||
 				member.phoneNumber.toLowerCase().includes(lowerCaseSearch) ||
-				/*member.address.street.toLowerCase().includes(lowerCaseSearch) ||
-				member.address.zip.toLowerCase().includes(lowerCaseSearch) ||
-				member.address.city.toLowerCase().includes(lowerCaseSearch) ||*/
 				member.birthday.toString().includes(lowerCaseSearch) ||
 				member.memberId.toString().toLowerCase().includes(lowerCaseSearch);
 		}) || [];
