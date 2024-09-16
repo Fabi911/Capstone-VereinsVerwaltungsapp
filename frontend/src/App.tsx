@@ -41,48 +41,52 @@ export default function App() {
 			.finally(() => setAppUser(null));
 	}
 
-	function fetchMe() {
-		axios.get("/api/users/me")
-			.then(res => setAppUser(res.data))
-			.catch(e => {
-				console.error(e);
-			})
+	async function fetchMe() {
+		try {
+			const res = await axios.get("/api/users/me");
+			if (res.data && typeof res.data === 'object' && 'id' in res.data && 'username' in res.data && 'role' in res.data) {
+				setAppUser(res.data as AppUser);
+			} else {
+				throw new Error("Unexpected response structure");
+			}
+		} catch (e) {
+			console.error("Error fetching user:", e);
+			setAppUser(null);
+		}
 	}
 
 	useEffect(() => {
 		fetchMe();
 	}, []);
-	if (!appUser) {
-		return (
+	const isAuthorizedAdminGroup = appUser?.role === "ADMIN" || appUser?.role === "GROUP1";
+	return (
+		<Layout logout={logout} appUser={appUser}>
 			<Routes>
-				<Route path="/" element={<LoginPage login={login}/>}/>
-				<Route path="/register" element={<RegisterPage/>}/>
-			</Routes>
-		);
-	} else {
-		const isAuthorizedAdminGroup = appUser?.role === "ADMIN" || appUser?.role === "GROUP1";
-		return (
-			<Layout logout={logout} appUser={appUser}>
-				<Routes>
-					{appUser && isAuthorizedAdminGroup && (
-						<>
-							<Route path="/" element={<Dashboard appUser={appUser}/>}/>
-							<Route path="/members" element={<MembersOverview/>}/>
-							<Route path="/members/:id" element={<MemberDetail/>}/>
-							<Route path="/register" element={<RegisterPage/>}/>
-							<Route path="/cash-journal" element={<CashJournal/>}/>
-						</>
-					)}
-
-					{appUser && appUser.role === "USER" && (
+				{!appUser && (
+					<>
+						<Route path="/" element={<LoginPage login={login}/>}/>
+						<Route path="/register" element={<RegisterPage/>}/>
+					</>)}
+				{appUser && isAuthorizedAdminGroup && (
+					<>
+						<Route path="/" element={<Dashboard appUser={appUser}/>}/>
+						<Route path="/members" element={<MembersOverview/>}/>
+						<Route path="/members/:id" element={<MemberDetail/>}/>
+						<Route path="/register" element={<RegisterPage/>}/>
+						<Route path="/cash-journal" element={<CashJournal/>}/>
+					</>
+				)
+				}
+				{
+					appUser && appUser.role === "USER" && (
 						<>
 							<p>Sie sind für diesen Bereich nicht berechtigt!</p>
 							<p>Bitte wenden Sie sich an Ihren Admin.</p>
 						</>
-					)}
-				</Routes>
-			</Layout>
-		)
-	}
-	;
+					)
+				}
+			</Routes>
+		</Layout>
+	)
+		;
 }
