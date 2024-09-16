@@ -7,7 +7,6 @@ public record BookingDTO(
 		String description,
 		double amount,
 		String category,
-		Type type,
-		String fileUrl
+		Type type
 ) {
 }

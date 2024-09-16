@@ -38,8 +38,7 @@ class CashJournalControllerTest {
 						    "description": "Mitgliedsbeiträge",
 						    "amount": 101.50,
 						    "category": "Beiträge",
-						    "type": "INCOME",
-						    "fileUrl": "fileUrl"
+						    "type": "INCOME"
 						}
 						"""))
 				.andExpect(MockMvcResultMatchers.status().isOk())
@@ -50,8 +49,7 @@ class CashJournalControllerTest {
 						    "description": "Mitgliedsbeiträge",
 						    "amount": 101.50,
 						    "category": "Beiträge",
-						    "type": "INCOME",
-    						"fileUrl": "fileUrl"
+						    "type": "INCOME"
 						}
 						"""));
 	}
@@ -66,8 +64,7 @@ class CashJournalControllerTest {
 				    "description": "Mitgliedsbeiträge",
 				    "amount": 101.50,
 				    "category": "Beiträge",
-				    "type": "INCOME",
-				    "fileUrl": "fileUrl"
+				    "type": "INCOME"
 				}
 				"""));
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/cash-journal/1"))
@@ -79,8 +76,7 @@ class CashJournalControllerTest {
 						    "description": "Mitgliedsbeiträge",
 						    "amount": 101.50,
 						    "category": "Beiträge",
-						    "type": "INCOME",
-    						"fileUrl": "fileUrl"
+						    "type": "INCOME"
 						}
 						"""));
 	}
@@ -96,8 +92,7 @@ class CashJournalControllerTest {
 				    "description": "Mitgliedsbeiträge",
 				    "amount": 101.50,
 				    "category": "Beiträge",
-				    "type": "INCOME",
-				    "fileUrl": "fileUrl"
+				    "type": "INCOME"
 				}
 				"""));
 		mockMvc.perform(MockMvcRequestBuilders.put("/api/cash-journal/1").contentType("application/json").content("""
@@ -107,8 +102,7 @@ class CashJournalControllerTest {
 						    "description": "Mitgliedsbeiträge",
 						    "amount": 101.50,
 						    "category": "Beiträge",
-						    "type": "INCOME",
-						    "fileUrl": "fileUrl"
+						    "type": "INCOME"
 						}
 						"""))
 				.andExpect(MockMvcResultMatchers.status().isOk())
@@ -119,8 +113,7 @@ class CashJournalControllerTest {
 						    "description": "Mitgliedsbeiträge",
 						    "amount": 101.50,
 						    "category": "Beiträge",
-						    "type": "INCOME",
-    						"fileUrl": "fileUrl"
+						    "type": "INCOME"
 						}
 						"""));
 	}
@@ -136,8 +129,7 @@ class CashJournalControllerTest {
 				    "description": "Mitgliedsbeiträge",
 				    "amount": 101.50,
 				    "category": "Beiträge",
-				    "type": "INCOME",
-				    "fileUrl": "fileUrl"
+				    "type": "INCOME"
 				}
 				"""));
 		mockMvc.perform(MockMvcRequestBuilders.delete("/api/cash-journal/1"))

@@ -13,7 +13,6 @@ public record Booking(
 		String description,
 		double amount,
 		String category,
-		Type type,
-		String fileUrl) {
+		Type type) {
 
 }

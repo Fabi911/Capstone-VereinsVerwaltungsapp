@@ -39,7 +39,6 @@ public class CashJournalService {
 				.withDescription(booking.description())
 				.withAmount(booking.amount())
 				.withCategory(booking.category())
-				.withType(booking.type())
-				.withFileUrl(booking.fileUrl()));
+				.withType(booking.type()));
 	}
 }
