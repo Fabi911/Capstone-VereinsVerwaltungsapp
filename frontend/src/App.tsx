@@ -8,7 +8,11 @@ import RegisterPage from "./Pages/RegisterPage.tsx";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import CashJournal from "./components/cashJournal/CashJournal.tsx";
+
+import AddBookingForm from "./components/cashJournal/AddBookingForm.tsx";
+
 import {AppUser} from "./types/AppUser.ts";
+
 
 export default function App() {
 	const [appUser, setAppUser] = useState<AppUser | null>(null);
@@ -74,6 +78,8 @@ export default function App() {
 						<Route path="/members/:id" element={<MemberDetail/>}/>
 						<Route path="/register" element={<RegisterPage/>}/>
 						<Route path="/cash-journal" element={<CashJournal/>}/>
+						<Route path="/cash-journal/add" element={<AddBookingForm/>}/>
+					</Routes>
 					</>
 				)
 				}

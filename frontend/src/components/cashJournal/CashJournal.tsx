@@ -5,12 +5,14 @@ import BookingTable from "./BookingTable.tsx";
 import Skeleton from "@mui/material/Skeleton";
 import styled from "@emotion/styled";
 import {Stack} from "@mui/material";
+import {Link} from "react-router-dom";
 
 export default function CashJournal() {
 	const [cashData, setCashData] = useState<Booking[] | null>(null);
-	const fetchCashData = async () => {
+
+	const fetchCashData = () => {
 		try {
-			axios.get(`/api/cash-journal`)
+			 axios.get(`/api/cash-journal`)
 				.then((response) => {
 					setCashData(response.data);
 				});
@@ -18,6 +20,8 @@ export default function CashJournal() {
 			console.log(error);
 		}
 	}
+
+
 	useEffect(() => {
 		fetchCashData();
 	}, []);
@@ -42,11 +46,15 @@ export default function CashJournal() {
 	return (
 		<div>
 			<h1>Kassenbuch</h1>
-			<BookingTable cashData={cashData.filter((booking) => booking.type === 'EXPENSE')} type={"Ausgaben"}/>
-			<BookingTable cashData={cashData.filter((booking) => booking.type === 'INCOME')} type={"Einnahmen"}/>
+			<Link to="/cash-journal/add">Buchung hinzufügen</Link>
+			<BookingTable cashData={cashData.filter((booking) => booking.type === 'EXPENSE')} type={"Ausgaben"} fetchCashData={fetchCashData}/>
+			<BookingTable cashData={cashData.filter((booking) => booking.type === 'INCOME')} type={"Einnahmen"} fetchCashData={fetchCashData}/>
 		</div>
 	)
+
 }
+
+
 // Styles
 const StyledStack = styled(Stack)`
     margin-top: 2rem;

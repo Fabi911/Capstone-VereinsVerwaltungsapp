@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import styled from "@emotion/styled";
 import DrawerMenu from "../menu/DrawerMenu.tsx";
 import LogoutIcon from '@mui/icons-material/Logout';
-import LoginIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
 import {AppUser} from "../../types/AppUser.ts";
 
 type HeaderProps = {
@@ -10,6 +10,7 @@ type HeaderProps = {
 	appUser: AppUser | null;
 };
 export default function Header({logout, appUser}: HeaderProps) {
+
 	return (
 		<StyledHeader>
 			<DrawerMenu/>

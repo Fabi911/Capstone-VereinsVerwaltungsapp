@@ -81,7 +81,8 @@ class CashJournalServiceTest {
 	void updateCashJournal() {
 		// Given
 		Booking originalBooking = new Booking("1", LocalDate.parse("2021-01-01"), "Test", 100, "Test", Type.INCOME);
-		Booking updatedBooking = new Booking("1", LocalDate.parse("2021-01-02"), "Updated Test", 200, "Updated Test", Type.EXPENSE);
+		Booking updatedBooking = new Booking("1", LocalDate.parse("2021-01-02"), "Updated Test", 200, "Updated Test",
+				Type.EXPENSE);
 		when(cashJournalRepository.findById("1")).thenReturn(java.util.Optional.of(originalBooking));
 		when(cashJournalRepository.save(updatedBooking)).thenReturn(updatedBooking);
 
