@@ -10,7 +10,6 @@ import {useEffect, useState} from "react";
 import CashJournal from "./components/cashJournal/CashJournal.tsx";
 import {AppUser} from "./types/AppUser.ts";
 
-
 export default function App() {
 	const [appUser, setAppUser] = useState<AppUser | null>(null);
 	const navigate = useNavigate();
@@ -53,34 +52,37 @@ export default function App() {
 	useEffect(() => {
 		fetchMe();
 	}, []);
-	const isAuthorizedAdminGroup = appUser?.role === "ADMIN" || appUser?.role === "GROUP1";
-	return (
-		<Layout logout={logout} appUser={appUser}>
-			<Routes>
-				{!appUser &&
-					<>
-						<Route path="/" element={<LoginPage login={login} />} />
-						<Route path="/register" element={<RegisterPage />} />
-					</>
-				}
+	if (!appUser) {
+		return (
+			<>
+				<Route path="/" element={<LoginPage login={login}/>}/>
+				<Route path="/register" element={<RegisterPage/>}/>
+			</>
+		);
+	} else {
+		const isAuthorizedAdminGroup = appUser?.role === "ADMIN" || appUser?.role === "GROUP1";
+		return (
+			<Layout logout={logout} appUser={appUser}>
+				<Routes>
+					{appUser && isAuthorizedAdminGroup && (
+						<>
+							<Route path="/" element={<Dashboard appUser={appUser}/>}/>
+							<Route path="/members" element={<MembersOverview/>}/>
+							<Route path="/members/:id" element={<MemberDetail/>}/>
+							<Route path="/register" element={<RegisterPage/>}/>
+							<Route path="/cash-journal" element={<CashJournal/>}/>
+						</>
+					)}
 
-				{appUser && isAuthorizedAdminGroup && (
-					<>
-						<Route path="/" element={<Dashboard appUser={appUser}/>} />
-						<Route path="/members" element={<MembersOverview />} />
-						<Route path="/members/:id" element={<MemberDetail />} />
-						<Route path="/register" element={<RegisterPage />} />
-						<Route path="/cash-journal" element={<CashJournal />} />
-					</>
-				)}
-
-				{appUser && appUser.role === "USER" && (
-					<>
-						<p>Sie sind für diesen Bereich nicht berechtigt!</p>
-						<p>Bitte wenden Sie sich an Ihren Admin.</p>
-					</>
-				)}
-			</Routes>
-		</Layout>
-	);
+					{appUser && appUser.role === "USER" && (
+						<>
+							<p>Sie sind für diesen Bereich nicht berechtigt!</p>
+							<p>Bitte wenden Sie sich an Ihren Admin.</p>
+						</>
+					)}
+				</Routes>
+			</Layout>
+		)
+	}
+	;
 }
