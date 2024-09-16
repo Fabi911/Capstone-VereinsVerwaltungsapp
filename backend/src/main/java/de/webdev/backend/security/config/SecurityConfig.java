@@ -19,6 +19,7 @@ public class SecurityConfig {
 
 	String apiMembers = "/api/members/**";
 	String cashJournal = "/api/cash-journal/**";
+	String toDos = "/api/todos/**";
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -51,6 +52,12 @@ public class SecurityConfig {
 								.requestMatchers(HttpMethod.GET, cashJournal).hasAnyRole(AppuserRole.ADMIN.name(), AppuserRole.GROUP1.name())
 								.requestMatchers(HttpMethod.PUT, cashJournal).hasAnyRole(AppuserRole.ADMIN.name(), AppuserRole.GROUP1.name())
 								.requestMatchers(HttpMethod.POST, cashJournal).hasAnyRole(AppuserRole.ADMIN.name(), AppuserRole.GROUP1.name())
+								// To_Dos
+								.requestMatchers(HttpMethod.DELETE, toDos).hasAnyRole(AppuserRole.ADMIN.name(), AppuserRole.GROUP1.name())
+								.requestMatchers(HttpMethod.GET, toDos).hasAnyRole(AppuserRole.ADMIN.name(), AppuserRole.GROUP1.name())
+								.requestMatchers(HttpMethod.PUT, toDos).hasAnyRole(AppuserRole.ADMIN.name(), AppuserRole.GROUP1.name())
+								.requestMatchers(HttpMethod.POST, toDos).hasAnyRole(AppuserRole.ADMIN.name(), AppuserRole.GROUP1.name())
+								// All other requests
 								.anyRequest().permitAll()
 				)
 				.httpBasic(httpSecurityHttpBasicConfigurer -> httpSecurityHttpBasicConfigurer.authenticationEntryPoint((request, response, authException) -> response.sendError(401)));

@@ -1,17 +1,22 @@
 import axios from "axios";
-import {useEffect, useState} from "react";
-import {ToDo} from "../../types/ToDo.ts";
-import ToDoTask from "./ToDoTask.tsx";
+import { useEffect, useState} from "react";
+import {ToDo} from "../../types/ToDo";
+import ToDoTask from "./ToDoTask";
 import styled from "@emotion/styled";
-import AddTask from "./AddTask.tsx";
+import AddTask from "./AddTask";
+import {AppUser} from "../../types/AppUser";
 
-export default function ToDoBoard() {
-	const [toDoList, setToDoList] = useState<ToDo[] | null>(null);
+type ToDoBoardProps = {
+	appUser: AppUser | null;
+}
+
+export default function ToDoBoard({appUser}: ToDoBoardProps) {
+	const [toDoList, setToDoList] = useState<ToDo[] >([]);
 	const [newTask, setNewTask] = useState<string>("");
 
 	async function addTask() {
 		try {
-			await axios.post('/api/todo', {description: newTask, status: "OPEN"})
+			await axios.post('/api/todo', {description: newTask, status: "OPEN", author: appUser?.id});
 			setNewTask("");
 			fetchToDoList();
 		} catch (error) {
@@ -19,27 +24,30 @@ export default function ToDoBoard() {
 		}
 	}
 
-	function fetchToDoList() {
-		axios.get('/api/todo')
-			.then((response) => {
-				setToDoList(response.data);
-			})
-			.catch((error) => {console.error(error)});
-	}
+	const fetchToDoList = async () => {
+		try {
+			const response = await axios.get(`/api/todo/author/${appUser?.id}`);
+			setToDoList(response.data);
+		}
+		catch (error) {
+			console.error(error);
+		}
+	};
 
 	useEffect(() => {
 		fetchToDoList();
 	}, []);
-	if (!toDoList) {
-		return <h1>Loading...</h1>
-	}
 	return (
 		<Container>
 			<h2>Aufgaben</h2>
 			<AddTask newTask={newTask} setNewTask={setNewTask} addTask={addTask}/>
 			<List>
-				{toDoList.map((todo) =>
-					<ToDoTask key={todo.id} todo={todo} fetchToDo={fetchToDoList}/>
+				{toDoList.length > 0 ? (
+					toDoList.map((todo) =>(
+						<ToDoTask key={todo.id} todo={todo} fetchToDo={fetchToDoList}/>
+					))
+				) : (
+					<p>keine ToDo's vorhanden!</p>
 				)}
 			</List>
 		</Container>
