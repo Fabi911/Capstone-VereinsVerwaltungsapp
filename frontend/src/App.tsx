@@ -79,7 +79,7 @@ export default function App() {
 						<Route path="/register" element={<RegisterPage/>}/>
 						<Route path="/cash-journal" element={<CashJournal/>}/>
 						<Route path="/cash-journal/add" element={<AddBookingForm/>}/>
-					</Routes>
+
 					</>
 				)
 				}
