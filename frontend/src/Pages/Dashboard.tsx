@@ -1,6 +1,6 @@
-import UsersList from "../components/UsersList/UsersList.tsx";
-import {AppUser} from "../App.tsx";
-import ToDoBoard from "../components/todoBoard/ToDoBoard.tsx";
+import UsersList from "../components/UsersList/UsersList";
+import {AppUser} from "../types/AppUser";
+import ToDoBoard from "../components/todoBoard/ToDoBoard";
 import styled from "@emotion/styled";
 
 type DashboardProps = {
@@ -8,16 +8,16 @@ type DashboardProps = {
 }
 export default function Dashboard({appUser}: DashboardProps) {
 	return (
-		<ContainerDashboard>
-			{appUser?.role === "ADMIN" &&
-				<>
+		<>
+			{(appUser?.role === "ADMIN" || appUser?.role === "GROUP1") &&
+				<ContainerDashboard>
 					<h1>Dashboard</h1>
 					<ContainerContent>
-						<UsersList/>
-						<ToDoBoard/>
+						<UsersList appUser={appUser}/>
+						<ToDoBoard appUser={appUser}/>
 					</ContainerContent>
-				</>}
-		</ContainerDashboard>
+				</ContainerDashboard>}
+		</>
 	);
 }
 // Styles

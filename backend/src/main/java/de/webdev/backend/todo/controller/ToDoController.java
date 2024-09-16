@@ -24,6 +24,11 @@ public class ToDoController {
 		return toDoService.getToDoById(id);
 	}
 
+	@GetMapping("/author/{author}")
+	public List<ToDo> getToDosByAuthor(@PathVariable String author) {
+		return toDoService.getToDosByAuthor(author);
+	}
+
 	@PostMapping
 	public ToDo createToDo(@RequestBody ToDo toDo) {
 		return toDoService.createToDo(toDo);

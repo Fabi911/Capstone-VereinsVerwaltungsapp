@@ -2,6 +2,7 @@ import {Link} from "react-router-dom";
 import styled from "@emotion/styled";
 import DrawerMenu from "../menu/DrawerMenu.tsx";
 import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Logout';
 
 
 
@@ -12,6 +13,7 @@ export default function Header({logout, appUser}: { logout: () => void, appUser:
 			<h1>Vereinsverwaltung</h1>
 			{appUser?.role &&
 				<StyledLink to={"/"} onClick={logout}><LogoutIcon fontSize="large"/><br/>Ausloggen</StyledLink>}
+			{!appUser?.role && <StyledLink to={"/"}><LoginIcon fontSize="large"/><br/> Login</StyledLink>}
 		</StyledHeader>
 	);
 }
