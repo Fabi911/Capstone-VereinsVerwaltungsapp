@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {AppUser} from "../../types/AppUser";
 import axios from "axios";
 import styled from "@emotion/styled";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 type UsersListProps = {
 	appUser: AppUser | null;
@@ -86,7 +87,7 @@ export default function UsersList({appUser}: UsersListProps) {
 								)}
 							</td>
 							<td>
-								<button onClick={() => deleteUser(user.id)}>Delete</button>
+								<button onClick={() => deleteUser(user.id)}><DeleteForeverIcon fontSize="large"/></button>
 							</td>
 						</tr>
 					))}

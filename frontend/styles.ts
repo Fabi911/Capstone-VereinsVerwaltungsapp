@@ -15,7 +15,7 @@ export const globalStyles = css`
 
     body {
         font-size: 1.6rem;
-        background-color: #f0f0f0;
+        background-color: #f4f4f4;
         color: #333;
         margin: 15rem 0;
         display: flex;
