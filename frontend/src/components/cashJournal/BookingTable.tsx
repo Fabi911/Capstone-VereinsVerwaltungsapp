@@ -2,16 +2,16 @@ import {Booking} from "../../types/booking.ts";
 import {DataGrid, GridColDef, GridRenderCellParams} from "@mui/x-data-grid";
 import styled from "@emotion/styled";
 import axios from "axios";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 
 type IncomeProps = {
 	cashData: Booking[];
 	type: string;
 	fetchCashData: () => void;
-
 }
-export default function BookingTable({cashData,type,fetchCashData}: IncomeProps) {
-
-	const deleteBooking = (id:string) => {
+export default function BookingTable({cashData, type, fetchCashData}: IncomeProps) {
+	const deleteBooking = (id: string) => {
 		axios.delete(`/api/cash-journal/${id}`)
 			.then(response => {
 				console.log(response);
@@ -21,7 +21,6 @@ export default function BookingTable({cashData,type,fetchCashData}: IncomeProps)
 				console.log(error);
 			});
 	}
-
 	const columns: GridColDef[] = [
 		{field: 'type', headerName: 'Buchungstyp', width: 150},
 		{field: 'description', headerName: 'Buchungstext', width: 250},
@@ -34,14 +33,31 @@ export default function BookingTable({cashData,type,fetchCashData}: IncomeProps)
 			width: 150,
 			renderCell: (params: GridRenderCellParams) => new Date(params.row.date).toLocaleDateString()
 		},
-		{field: 'amount', headerName: 'Betrag', width: 120, renderCell: (params: GridRenderCellParams) => `${params.row.amount} €`},
-		{field:'fileUrl', headerName: 'Beleg', width: 150, },
-		{field:'delete', headerName: 'Löschen', width: 150, renderCell: (params: GridRenderCellParams) => <button onClick={()=>deleteBooking(params.row.id)}>Löschen</button>},
+		{
+			field: 'amount',
+			headerName: 'Betrag',
+			width: 120,
+			renderCell: (params: GridRenderCellParams) => `${params.row.amount} €`
+		},
+		{
+			field: 'edit',
+			headerName: 'Bearbeiten',
+			width: 150,
+			renderCell: (params: GridRenderCellParams) => <button
+				onClick={() => window.location.href = `/cash-journal/update/${params.row.id}`}><EditNoteIcon fontSize="large"/></button>
+		},
+		{
+			field: 'delete',
+			headerName: 'Löschen',
+			width: 150,
+			renderCell: (params: GridRenderCellParams) => <button
+				onClick={() => deleteBooking(params.row.id)}><DeleteForeverIcon fontSize="large"/></button>
+		},
 	];
 	return (
 		<div>
 			<h3>{type}</h3>
-			<StyledDataGrid columns={columns} rows={cashData} getRowId={(row) => row.id }
+			<StyledDataGrid columns={columns} rows={cashData} getRowId={(row) => row.id}
 			                initialState={{
 				                pagination: {
 					                paginationModel: {

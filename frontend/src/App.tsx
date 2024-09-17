@@ -4,14 +4,15 @@ import Layout from "./components/Layout/Layout.tsx";
 import MembersOverview from "./Pages/MembersOverview.tsx";
 import MemberDetail from "./Pages/MemberDetail.tsx";
 import LoginPage from "./Pages/LoginPage.tsx";
-import RegisterPage from "./Pages/RegisterPage.tsx";
+import RegisterPage from "./Pages/RegisterPage";
 import axios from "axios";
 import {useEffect, useState} from "react";
-import CashJournal from "./components/cashJournal/CashJournal.tsx";
+import CashJournal from "./Pages/CashJournalPage"
 
 import AddBookingForm from "./components/cashJournal/AddBookingForm.tsx";
 
 import {AppUser} from "./types/AppUser.ts";
+import UpdateBookingForm from "./components/cashJournal/UpdateBookingForm.tsx";
 
 
 export default function App() {
@@ -79,6 +80,7 @@ export default function App() {
 						<Route path="/register" element={<RegisterPage/>}/>
 						<Route path="/cash-journal" element={<CashJournal/>}/>
 						<Route path="/cash-journal/add" element={<AddBookingForm/>}/>
+						<Route path="/cash-journal/update/:id" element={<UpdateBookingForm/>}/>
 
 					</>
 				)
