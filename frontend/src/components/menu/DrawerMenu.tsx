@@ -13,6 +13,7 @@ export default function DrawerMenu() {
 	const toggleDrawer = (newOpen: boolean) => () => {
 		setOpen(newOpen);
 	};
+
 	const DrawerList = (
 		<Box sx={{width: 250, padding:3}} role="presentation" onClick={toggleDrawer(false)}>
 			<ListStyled>
@@ -27,22 +28,24 @@ export default function DrawerMenu() {
 	return (
 		<div>
 			<ButtonStyled onClick={toggleDrawer(true)}><MenuOpenIcon fontSize="large"/><br/>Menü</ButtonStyled>
-			<Drawer open={open} onClose={toggleDrawer(false)}>
+			<Drawer open={open} onClose={toggleDrawer(false)} sx={{'& .MuiDrawer-paper': {
+					backgroundColor: 'var(--background-color)'
+				} }}>
 				{DrawerList}
-			</Drawer>
+			</Drawer >
 		</div>
 	)
 }
 // Styling
 const LinkStyled = styled(Link)`
     text-decoration: none;
-    color: black;
+    color: var(--text-color);
     display: flex;
     align-items: center;
     padding: 10px;
 
     &:hover {
-        background-color: #f0f0f0;
+        background-color: var(--hover-color);
     }
 `;
 const ListStyled = styled.ul`
@@ -60,6 +63,7 @@ const ButtonStyled = styled.button`
     cursor: pointer;
     border-radius: 0.5rem;
 	&:hover {
-		background-color: #222;
+		background-color: var(--hover-color);
+		color: var(--text-color);
 	}
 `;

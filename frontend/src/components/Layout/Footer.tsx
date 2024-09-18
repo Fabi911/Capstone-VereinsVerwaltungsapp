@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
+import ThemeToggle from "./ThemeToggle.tsx";
 
 export default function Footer() {
     return (
         <StyledFooter>
             <p>&copy; 2024 Fabian Döz. All rights reserved.</p>
+            <ThemeToggle/>
         </StyledFooter>
     );
 }
@@ -11,7 +13,7 @@ export default function Footer() {
 // Styles
 
 const StyledFooter = styled.header`
-    background-color: #959494;
+    background-color: var(--bg-color-layout);
     color: white;
     padding: 1rem;
     text-align: center;

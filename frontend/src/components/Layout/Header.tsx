@@ -25,8 +25,8 @@ export default function Header({logout, appUser}: HeaderProps) {
 }
 // Styles
 const StyledHeader = styled.header`
-    background-color: #959494;
-    color: white;
+    background-color: var(--bg-color-layout);
+    color: var(--text-color-layout);
     padding: 0;
     text-align: center;
     width: 100vw;
@@ -48,6 +48,7 @@ const StyledLink = styled(Link)`
     border-radius: 0.5rem;
 
     &:hover {
-        background-color: #222;
+        background-color: var(--hover-color);
+	    color: var(--text-color);
     }
 `;

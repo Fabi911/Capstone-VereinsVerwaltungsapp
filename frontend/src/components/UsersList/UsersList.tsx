@@ -48,7 +48,7 @@ export default function UsersList({appUser}: UsersListProps) {
 	}, []);
 
 	return (
-		<Container>
+		<div className="ContentBox">
 			<h2>Benutzer</h2>
 			{error && <p>{error}</p>}
 			<Table>
@@ -93,27 +93,17 @@ export default function UsersList({appUser}: UsersListProps) {
 					))}
 				</tbody>
 			</Table>
-		</Container>
+		</div>
 	)
 }
 // Styles
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 300px;
-    margin: 0;
-    background-color: var(--box-color);
-    box-shadow: var(--box-shadow);
-    border-radius: 1rem;
-    padding: 5rem 10rem;
-`;
+
 const Table = styled.table`
     width: 100%;
-    border-collapse: collapse;
+    border: var(--box-border);
 
     th, td {
-        border: 1px solid black;
+        border: var(--box-border);
         padding: 0.5rem;
     }
 `;

@@ -94,4 +94,21 @@ class CashJournalServiceTest {
 		verify(cashJournalRepository).findById("1");
 		verify(cashJournalRepository).save(updatedBooking);
 	}
+
+	@Test
+	void getLastThreeBookings() {
+		// Given
+		List<Booking> bookings = new ArrayList<>();
+		bookings.add(new Booking("1", LocalDate.parse("2021-01-01"), "Test", 100, "Test", Type.INCOME));
+		bookings.add(new Booking("2", LocalDate.parse("2021-01-02"), "Test", 100, "Test", Type.INCOME));
+		bookings.add(new Booking("3", LocalDate.parse("2021-01-03"), "Test", 100, "Test", Type.INCOME));
+		when(cashJournalRepository.findTop3ByOrderByDateDesc()).thenReturn(bookings);
+
+		// When
+		List<Booking> actual = cashJournalService.getLastThreeBookings();
+
+		// Then
+		assertEquals(bookings, actual);
+		verify(cashJournalRepository).findTop3ByOrderByDateDesc();
+	}
 }

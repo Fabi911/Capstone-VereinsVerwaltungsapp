@@ -136,5 +136,14 @@ class CashJournalControllerTest {
 				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
+	@Test
+	@WithMockUser(roles = "ADMIN")
+	@DirtiesContext
+	void getLastThreeBookings_shouldReturnEmptyList_whenCallInitially() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/cash-journal/dashboard"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.content().json("[]"));
+	}
+
 
 }

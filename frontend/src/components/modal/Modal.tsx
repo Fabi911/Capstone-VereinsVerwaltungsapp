@@ -12,11 +12,12 @@ export default function Modal({children,setModal} : { children: React.ReactNode,
 }
 
 const ModalBox = styled.div`
-  background: #fff;
+  background: var(--background-color);
   padding: 20px;
+    border: var(--box-border);
   border-radius: 15px;
   position: fixed;
-  top: 16%;
+  top: 10%;
   left: 25%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
@@ -45,4 +46,5 @@ const CloseButton = styled.button`
   right: 1%;
   background: none;
   border: none;
+    cursor: pointer;
 `;

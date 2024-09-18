@@ -38,4 +38,9 @@ public class CashJournalController {
 	public Booking updateBooking(@PathVariable String id,@RequestBody Booking booking) {
 		return cashJournalService.updateBooking(id, booking);
 	}
+
+	@GetMapping("/dashboard")
+	public List<Booking> showDashboard() {
+		return cashJournalService.getLastThreeBookings();
+	}
 }
