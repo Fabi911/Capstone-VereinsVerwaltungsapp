@@ -15,19 +15,28 @@ export default function LastThree() {
 			});
 	}, []);
 	const columns: GridColDef[] = [
-		{field: 'type', headerName: 'Buchungstyp', width: 150, renderCell: (params: GridRenderCellParams) => params.row.type === 'INCOME' ? 'Einnahme' : 'Ausgabe'},
-		{field: 'description', headerName: 'Buchungstext', width: 250},
 		{
-			field: 'category', headerName: 'Kategorie', width: 250,
+			field: 'type',
+			headerClassName: 'MuiDataGrid-columnHeaders',
+			headerName: 'Buchungstyp',
+			width: 150,
+			renderCell: (params: GridRenderCellParams) => params.row.type === 'INCOME' ? 'Einnahme' : 'Ausgabe'
+		},
+		{field: 'description', headerClassName: 'MuiDataGrid-columnHeaders', headerName: 'Buchungstext', width: 250},
+		{
+			field: 'category', headerClassName: 'MuiDataGrid-columnHeaders',
+			headerName: 'Kategorie', width: 250,
 		},
 		{
 			field: 'date',
+			headerClassName: 'MuiDataGrid-columnHeaders',
 			headerName: 'Buchungsdatum',
 			width: 150,
 			renderCell: (params: GridRenderCellParams) => new Date(params.row.date).toLocaleDateString()
 		},
 		{
 			field: 'amount',
+			headerClassName: 'MuiDataGrid-columnHeaders',
 			headerName: 'Betrag',
 			width: 120,
 			renderCell: (params: GridRenderCellParams) => `${params.row.amount} €`
@@ -40,7 +49,8 @@ export default function LastThree() {
 	return (
 		<div className="ContentBox">
 			<h2>Letzte drei Buchungen</h2>
-			<DataGrid columns={columns} rows={bookings} getRowId={(row) => row.id} sx={{fontSize: '1.4rem'}}/>
+			<DataGrid className="custom-header" columns={columns} rows={bookings} getRowId={(row) => row.id}
+			          sx={{fontSize: '1.4rem', color: 'var(--text-color)', borderColor: 'var(--box-border-color)'}}/>
 		</div>
 	);
 }
