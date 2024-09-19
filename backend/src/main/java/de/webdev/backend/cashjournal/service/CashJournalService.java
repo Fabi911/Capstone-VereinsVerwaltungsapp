@@ -41,4 +41,8 @@ public class CashJournalService {
 				.withCategory(booking.category())
 				.withType(booking.type()));
 	}
+
+	public List<Booking> getLastThreeBookings() {
+		return cashJournalRepository.findTop3ByOrderByDateDesc();
+	}
 }

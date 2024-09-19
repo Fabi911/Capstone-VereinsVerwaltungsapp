@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
-import Modal from "../components/modual/Modal.tsx";
-import AddMember from "../components/Forms/AddMember.tsx";
+import Modal from "../components/modal/Modal.tsx";
+import AddMember from "../components/MemberForms/AddMember.tsx";
 import axios from "axios";
 import {Member} from "../types/member.ts";
 import {DataGrid, GridColDef, GridRenderCellParams} from '@mui/x-data-grid';
@@ -10,6 +10,7 @@ import {Link} from "react-router-dom";
 import {Stack} from "@mui/material";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import {borderColor} from "@mui/system";
 
 export default function MembersOverview() {
 	const [modal, setModal] = useState(false);
@@ -31,23 +32,29 @@ export default function MembersOverview() {
 	}, [modal]);
 	const columns: GridColDef[] = [
 		{
-			field: 'link', headerName: 'Details', width: 100, renderCell: (params: GridRenderCellParams) => (
+			field: 'link',
+			headerClassName: 'MuiDataGrid-columnHeaders',
+			headerName: 'Details',
+			width: 100,
+			renderCell: (params:
+				             GridRenderCellParams) => (
 				<Link to={`/members/${params.row.memberId}`} className={"noDecoration"}>
-					<AccountBoxIcon fontSize="large"/>
+					<AccountBoxIcon fontSize="large" sx={{color: 'var(--text-color)'}}/>
 				</Link>
 			)
 		},
-		{field: 'name', headerName: 'Vorname', width: 150},
-		{field: 'lastName', headerName: 'Nachname', width: 150},
+		{field: 'name',headerClassName: 'MuiDataGrid-columnHeaders', headerName: 'Vorname', width: 150},
+		{field: 'lastName',headerClassName: 'MuiDataGrid-columnHeaders', headerName: 'Nachname', width: 150},
 		{
-			field: 'email', headerName: 'E-Mail', width: 250,
+			field: 'email', headerClassName: 'MuiDataGrid-columnHeaders',headerName: 'E-Mail', width: 250,
 			renderCell: (params: GridRenderCellParams) => (
-				<a href={`mailto:${params.row.email}`}>{params.row.email}</a>
+				<a href={`mailto:${params.row.email}`}style={{ color: 'inherit', textDecoration: 'none' }}>{params.row.email}</a>
 			)
 		},
-		{field: 'phoneNumber', headerName: 'Telefon', width: 200},
+		{field: 'phoneNumber', headerClassName: 'MuiDataGrid-columnHeaders',headerName: 'Telefon', width: 200},
 		{
 			field: 'address',
+			headerClassName: 'MuiDataGrid-columnHeaders',
 			headerName: 'Adresse',
 			width: 350,
 			renderCell: (params: { row: Member }) => {
@@ -57,11 +64,12 @@ export default function MembersOverview() {
 		},
 		{
 			field: 'birthday',
+			headerClassName: 'MuiDataGrid-columnHeaders',
 			headerName: 'Geburtstag',
 			width: 150,
 			renderCell: (params: GridRenderCellParams) => new Date(params.row.birthday).toLocaleDateString()
 		},
-		{field: 'memberId', headerName: 'Mitgliedsnummer', width: 120},
+		{field: 'memberId', headerClassName: 'MuiDataGrid-columnHeaders',headerName: 'Mitgliedsnummer', width: 120}
 	];
 
 	function searchMembers(): Member[] {
@@ -102,7 +110,8 @@ export default function MembersOverview() {
 			}
 			{
 				membersDB &&
-				<StyledDataGrid rows={searchMembers()} columns={columns} getRowId={(row) => row.memberId}
+				<DataGrid className="custom-header" rows={searchMembers()} columns={columns}
+				                getRowId={(row) => row.memberId}
 				                initialState={{
 					                pagination: {
 						                paginationModel: {
@@ -110,17 +119,13 @@ export default function MembersOverview() {
 						                },
 					                },
 				                }}
-				                sx={{fontSize: '1.4rem'}}/>
+				                sx={{fontSize: '1.4rem', color: 'var(--text-color)', borderColor: 'var(--box-border-color)'}}/>
 			}
 		</Container>
 	)
 		;
 }
 // Styles
-const StyledDataGrid = styled(DataGrid)`
-    width: 90vw;
-    margin-top: 2rem;
-`;
 const StyledStack = styled(Stack)`
     margin-top: 2rem;
     width: 90vw;
@@ -135,7 +140,7 @@ const OverviewMenuBar = styled.div`
     justify-content: space-between;
     width: 90vw;
     padding: 0 0 1rem 0;
-    border-bottom: 1px solid black;
+    border-bottom: var(--box-border);
 `;
 const AddButton = styled.button`
     align-self: flex-start;

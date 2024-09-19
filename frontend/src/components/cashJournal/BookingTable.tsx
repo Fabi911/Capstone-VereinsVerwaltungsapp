@@ -22,25 +22,28 @@ export default function BookingTable({cashData, type, fetchCashData}: IncomeProp
 			});
 	}
 	const columns: GridColDef[] = [
-		{field: 'type', headerName: 'Buchungstyp', width: 150},
-		{field: 'description', headerName: 'Buchungstext', width: 250},
+		{field: 'type', headerClassName: 'MuiDataGrid-columnHeaders',headerName: 'Buchungstyp', width: 150,renderCell: (params: GridRenderCellParams) => params.row.type === 'INCOME' ? 'Einnahme' : 'Ausgabe'},
+		{field: 'description', headerClassName: 'MuiDataGrid-columnHeaders',headerName: 'Buchungstext', width: 250},
 		{
-			field: 'category', headerName: 'Kategorie', width: 250,
+			field: 'category', headerClassName: 'MuiDataGrid-columnHeaders',headerName: 'Kategorie', width: 250,
 		},
 		{
 			field: 'date',
+			headerClassName: 'MuiDataGrid-columnHeaders',
 			headerName: 'Buchungsdatum',
 			width: 150,
 			renderCell: (params: GridRenderCellParams) => new Date(params.row.date).toLocaleDateString()
 		},
 		{
 			field: 'amount',
+			headerClassName: 'MuiDataGrid-columnHeaders',
 			headerName: 'Betrag',
 			width: 120,
 			renderCell: (params: GridRenderCellParams) => `${params.row.amount} €`
 		},
 		{
 			field: 'edit',
+			headerClassName: 'MuiDataGrid-columnHeaders',
 			headerName: 'Bearbeiten',
 			width: 150,
 			renderCell: (params: GridRenderCellParams) => <button
@@ -48,6 +51,7 @@ export default function BookingTable({cashData, type, fetchCashData}: IncomeProp
 		},
 		{
 			field: 'delete',
+			headerClassName: 'MuiDataGrid-columnHeaders',
 			headerName: 'Löschen',
 			width: 150,
 			renderCell: (params: GridRenderCellParams) => <button
@@ -57,7 +61,7 @@ export default function BookingTable({cashData, type, fetchCashData}: IncomeProp
 	return (
 		<div>
 			<h3>{type}</h3>
-			<StyledDataGrid columns={columns} rows={cashData} getRowId={(row) => row.id}
+			<DataGrid className="custom-header" columns={columns} rows={cashData} getRowId={(row) => row.id}
 			                initialState={{
 				                pagination: {
 					                paginationModel: {
@@ -65,10 +69,7 @@ export default function BookingTable({cashData, type, fetchCashData}: IncomeProp
 					                },
 				                },
 			                }}
-			                sx={{fontSize: '1.4rem'}}/>
+			                sx={{fontSize: '1.4rem', color:'var(--text-color)', borderColor: 'var(--box-border-color)'}}/>
 		</div>
 	)
 }
-const StyledDataGrid = styled(DataGrid)`
-    margin-top: 2rem;
-`;

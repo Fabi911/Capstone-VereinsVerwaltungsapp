@@ -8,8 +8,8 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import Modal from "../components/modual/Modal.tsx";
-import EditMember from "../components/Forms/EditMember.tsx";
+import Modal from "../components/modal/Modal.tsx";
+import EditMember from "../components/MemberForms/EditMember.tsx";
 
 export default function MemberDetail() {
 	const {id} = useParams();
@@ -43,7 +43,7 @@ export default function MemberDetail() {
 	}
 	const {name, lastName, email, phoneNumber, address, birthday, memberId} = memberData;
 	return (
-		<DetailsBox>
+		<div className="ContentBox">
 			<BackLink to={"/members"}><ArrowBackIcon fontSize="large"/></BackLink>
 			<MemberBox>
 				<h1>{name} {lastName}</h1>
@@ -74,23 +74,13 @@ export default function MemberDetail() {
 					)}
 				</ButtonBox>
 			</MemberBox>
-		</DetailsBox>
+		</div>
 	);
 }
 // Styling
-const DetailsBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: var(--box-color);
-	box-shadow: var(--box-shadow);
-	border-radius: 1rem;
-    padding: 5rem 10rem;
-
-`;
 const BackLink = styled(Link)`
     align-self: flex-start;
-    color: black;
+    color: var(--text-color);
     text-decoration: none;
 
 `;

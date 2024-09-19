@@ -39,7 +39,7 @@ export default function ToDoTask({todo, fetchToDo}: TaskProps) {
 		<TaskBox>
 			<input type="checkbox" defaultChecked={status === "CLOSED"} onChange={changeStatus}/>
 			<p>{todo.description}</p>
-			<ButtonDelete onClick={deleteTask}><DeleteForeverIcon fontSize="large"/></ButtonDelete>
+			<ButtonDelete onClick={deleteTask}><DeleteForeverIcon fontSize="large" sx={{ color: 'var(--text-color)' }}/></ButtonDelete>
 		</TaskBox>
 	)
 }
@@ -47,7 +47,8 @@ export default function ToDoTask({todo, fetchToDo}: TaskProps) {
 const TaskBox = styled.div`
     display: flex;
     justify-content: space-between;
-    border: 0.1rem solid black;
+    border: var(--box-border);
+	color: var(--text-color);
     padding: 1rem;
     margin: 1rem;
 `;

@@ -38,7 +38,7 @@ export default function ToDoBoard({appUser}: ToDoBoardProps) {
 		fetchToDoList();
 	}, []);
 	return (
-		<Container>
+		<div className="ContentBox">
 			<h2>Aufgaben</h2>
 			<AddTask newTask={newTask} setNewTask={setNewTask} addTask={addTask}/>
 			<List>
@@ -50,7 +50,7 @@ export default function ToDoBoard({appUser}: ToDoBoardProps) {
 					<p>keine ToDo's vorhanden!</p>
 				)}
 			</List>
-		</Container>
+		</div>
 	)
 }
 

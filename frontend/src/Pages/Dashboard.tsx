@@ -2,6 +2,7 @@ import UsersList from "../components/UsersList/UsersList";
 import {AppUser} from "../types/AppUser";
 import ToDoBoard from "../components/todoBoard/ToDoBoard";
 import styled from "@emotion/styled";
+import LastThree from "../components/cashJournal/LastThree.tsx";
 
 type DashboardProps = {
 	appUser: AppUser | null;
@@ -15,6 +16,7 @@ export default function Dashboard({appUser}: DashboardProps) {
 					<ContainerContent>
 						<UsersList appUser={appUser}/>
 						<ToDoBoard appUser={appUser}/>
+						<LastThree/>
 					</ContainerContent>
 				</ContainerDashboard>}
 		</>
@@ -33,5 +35,6 @@ const ContainerContent = styled.div`
     justify-content: center;
     gap: 20rem;
     padding: 2rem;
-    width: 80%;
+    width: 90%;
+	flex-wrap: wrap;
 `;

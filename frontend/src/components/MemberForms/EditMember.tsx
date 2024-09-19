@@ -33,61 +33,64 @@ export default function EditMember({member,setModal,getMember} : {member:Member,
     const defaultBirthday = new Date(member.birthday).toISOString().split('T')[0];
 
     return (
-            <div>
+            <div className="ContentBox">
                 <h1>Mitglied bearbeiten</h1>
-                <Form onSubmit={handleFormSubmit}>
-                    <Inputfield>
+                <FormStyled onSubmit={handleFormSubmit}>
+                    <InputField>
                         <label htmlFor="memberId">Mitgliedsnummer</label>
                         <input type="text" id="memberId" name="memberId" defaultValue={member.memberId}/>
-                    </Inputfield>
-                    <Inputfield>
+                    </InputField>
+                    <InputField>
                         <label htmlFor="name">Vorname</label>
                         <input type="text" id="name" name="name" defaultValue={member.name}/>
-                    </Inputfield>
-                    <Inputfield>
+                    </InputField>
+                    <InputField>
                         <label htmlFor="lastName">Nachname</label>
                         <input type="text" id="lastName" name="lastName" defaultValue={member.lastName}/>
-                    </Inputfield>
-                    <Inputfield>
+                    </InputField>
+                    <InputField>
                         <label htmlFor="email">Email</label>
                         <input type="email" id="email" name="email" defaultValue={member.email}/>
-                    </Inputfield>
-                    <Inputfield>
+                    </InputField>
+                    <InputField>
                         <label htmlFor="phoneNumber">Telefon</label>
                         <input type="tel" id="phoneNumber" name="phoneNumber" defaultValue={member.phoneNumber}/>
-                    </Inputfield>
-                    <Inputfield>
+                    </InputField>
+                    <InputField>
                         <label htmlFor="street">Straße</label>
                         <input type="text" id="street" name="street" defaultValue={member.address.street}/>
-                    </Inputfield>
-                    <Inputfield>
+                    </InputField>
+                    <InputField>
                         <label htmlFor="zip">PLZ</label>
                         <input type="text" id="zip" name="zip" minLength={5} maxLength={5} defaultValue={member.address.zip}/>
-                    </Inputfield>
-                    <Inputfield>
+                    </InputField>
+                    <InputField>
                         <label htmlFor="city">Stadt</label>
                         <input type="text" id="city" name="city" defaultValue={member.address.city}/>
-                    </Inputfield>
-                    <Inputfield>
+                    </InputField>
+                    <InputField>
                         <label htmlFor="birthday">Geburtstag</label>
                         <input type="date" id="birthday" name="birthday" defaultValue={defaultBirthday}/>
-                    </Inputfield>
+                    </InputField>
                     <button type="submit">Speichern</button>
-                </Form>
+                </FormStyled>
             </div>
         );
     }
 
 // Styles
 
-    const Form = styled.form`
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    `
-    const Inputfield = styled.div`
-        display: flex;
-        justify-content: space-between;
-        width: 70%;
-    `
+const FormStyled = styled.form`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 300px;
+    margin: 0;
+    padding: 5rem 10rem;
+
+`;
+const InputField = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+`;
