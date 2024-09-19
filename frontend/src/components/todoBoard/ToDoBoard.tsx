@@ -60,10 +60,3 @@ const List = styled.div`
 	display: flex;
 	flex-direction: column-reverse;
 `;
-
-const Container = styled.div`
-    background-color: var(--box-color);
-    box-shadow: var(--box-shadow);
-    border-radius: 1rem;
-    padding: 5rem 10rem;
-`;

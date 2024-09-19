@@ -10,7 +10,6 @@ import {Link} from "react-router-dom";
 import {Stack} from "@mui/material";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import {borderColor} from "@mui/system";
 
 export default function MembersOverview() {
 	const [modal, setModal] = useState(false);

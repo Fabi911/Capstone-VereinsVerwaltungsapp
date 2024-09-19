@@ -1,6 +1,5 @@
 import {Booking} from "../../types/booking.ts";
 import {DataGrid, GridColDef, GridRenderCellParams} from "@mui/x-data-grid";
-import styled from "@emotion/styled";
 import axios from "axios";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditNoteIcon from "@mui/icons-material/EditNote";
