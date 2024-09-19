@@ -12,7 +12,6 @@ import {AppUser} from "./types/AppUser.ts";
 import UpdateBookingForm from "./components/cashJournal/UpdateBookingForm.tsx";
 import CashJournalPage from "./Pages/CashJournalPage.tsx";
 
-
 export default function App() {
 	const [appUser, setAppUser] = useState<AppUser | null>(null);
 	const navigate = useNavigate();

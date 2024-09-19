@@ -33,8 +33,8 @@ const ContainerDashboard = styled.div`
 const ContainerContent = styled.div`
     display: flex;
     justify-content: center;
-    gap: 20rem;
+    gap: 5rem;
     padding: 2rem;
     width: 90%;
-	flex-wrap: wrap;
+    flex-wrap: wrap;
 `;

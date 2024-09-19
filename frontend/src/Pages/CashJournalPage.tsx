@@ -50,7 +50,7 @@ export default function CashJournalPage() {
 	return (
 		<div>
 			<h1>Kassenbuch</h1>
-			<Link to="/cash-journal/add">Buchung hinzufügen</Link>
+			<Link to="/cash-journal/add" style={{ color: 'inherit', textDecoration: 'none' }}>Buchung hinzufügen</Link>
 			<BookingTable cashData={cashData.filter((booking) => booking.type === 'EXPENSE')} type={"Ausgaben"}
 			              fetchCashData={fetchCashData}/>
 			<p>Gesamtsumme der Ausgaben: {sumExpense} €</p>
