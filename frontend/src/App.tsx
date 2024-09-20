@@ -83,10 +83,7 @@ export default function App() {
 				}
 				{
 					appUser && appUser.role === "USER" && (
-						<>
-							<p>Sie sind für diesen Bereich nicht berechtigt!</p>
-							<p>Bitte wenden Sie sich an Ihren Admin.</p>
-						</>
+						<Route path="/" element={<Dashboard appUser={appUser}/>}/>
 					)
 				}
 			</Routes>

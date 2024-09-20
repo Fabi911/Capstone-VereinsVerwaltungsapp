@@ -11,10 +11,11 @@ type HeaderProps = {
 	appUser: AppUser | null;
 };
 export default function Header({logout, appUser}: HeaderProps) {
+	console.log(appUser);
 	return (
 		<>
 			<StyledHeader>
-				<DrawerMenu/>
+				<DrawerMenu appUser={appUser}/>
 				<h1>CommunityCore</h1>
 				{appUser?.role &&
 					<StyledLink to={"/"} onClick={logout}><LogoutIcon fontSize="large"/><br/>Ausloggen<br/>Eingeloggt

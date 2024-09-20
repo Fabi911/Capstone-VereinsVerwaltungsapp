@@ -7,32 +7,41 @@ import PeopleIcon from '@mui/icons-material/People';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import styled from "@emotion/styled";
+import {AppUser} from "../../types/AppUser.ts";
 
-export default function DrawerMenu() {
+type DrawerMenuProps = {
+	appUser: AppUser | null;
+}
+export default function DrawerMenu({appUser}: DrawerMenuProps) {
 	const [open, setOpen] = useState(false);
 	const toggleDrawer = (newOpen: boolean) => () => {
 		setOpen(newOpen);
 	};
-
 	const DrawerList = (
-		<Box sx={{width: 250, padding:3}} role="presentation" onClick={toggleDrawer(false)}>
+		<Box sx={{width: 250, padding: 3}} role="presentation" onClick={toggleDrawer(false)}>
 			<ListStyled>
 				<li><LinkStyled to={"/"}><HomeIcon fontSize="large"/> Home</LinkStyled></li>
-				<li><LinkStyled to={"/members"}><PeopleIcon fontSize="large"/> Mitgliederübersicht </LinkStyled></li>
-				<li><LinkStyled to={"/cash-journal"}><AccountBalanceIcon fontSize="large"/> Kassenbuch </LinkStyled></li>
-
+				{appUser?.role === "ADMIN" || appUser?.role === "GROUP1" ? (
+					<>
+						<li><LinkStyled to={"/members"}><PeopleIcon fontSize="large"/> Mitgliederübersicht</LinkStyled>
+						</li>
+						<li><LinkStyled to={"/cash-journal"}><AccountBalanceIcon
+							fontSize="large"/> Kassenbuch</LinkStyled></li>
+					</>
+				) : null}
 			</ListStyled>
-
 		</Box>
 	);
 	return (
 		<div>
 			<ButtonStyled onClick={toggleDrawer(true)}><MenuOpenIcon fontSize="large"/><br/>Menü</ButtonStyled>
-			<Drawer open={open} onClose={toggleDrawer(false)} sx={{'& .MuiDrawer-paper': {
+			<Drawer open={open} onClose={toggleDrawer(false)} sx={{
+				'& .MuiDrawer-paper': {
 					backgroundColor: 'var(--background-color)'
-				} }}>
+				}
+			}}>
 				{DrawerList}
-			</Drawer >
+			</Drawer>
 		</div>
 	)
 }
@@ -53,17 +62,17 @@ const ListStyled = styled.ul`
     padding: 0;
     margin: 0;
 `;
-
 const ButtonStyled = styled.button`
-	background-color: transparent;
-	border: none;
-	color: white;
-	font-size: 1.8rem;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
     padding: 0.6rem;
     cursor: pointer;
     border-radius: 0.5rem;
-	&:hover {
-		background-color: var(--hover-color);
-		color: var(--text-color);
-	}
+
+    &:hover {
+        background-color: var(--hover-color);
+        color: var(--text-color);
+    }
 `;

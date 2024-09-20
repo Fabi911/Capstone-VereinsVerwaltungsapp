@@ -10,15 +10,20 @@ type DashboardProps = {
 export default function Dashboard({appUser}: DashboardProps) {
 	return (
 		<>
-			{(appUser?.role === "ADMIN" || appUser?.role === "GROUP1") &&
-				<ContainerDashboard>
-					<h1>Dashboard</h1>
-					<ContainerContent>
-						<UsersList appUser={appUser}/>
-						<ToDoBoard appUser={appUser}/>
-						<LastThree/>
-					</ContainerContent>
-				</ContainerDashboard>}
+
+			<ContainerDashboard>
+				<h1>Dashboard</h1>
+				<ContainerContent>
+					{(appUser?.role === "ADMIN" || appUser?.role === "GROUP1") &&
+						<>
+							<UsersList appUser={appUser}/>
+							<ToDoBoard appUser={appUser}/>
+							<LastThree/>
+						</>}
+					{(appUser?.role === "USER") &&
+						<ToDoBoard appUser={appUser}/>}
+				</ContainerContent>
+			</ContainerDashboard>
 		</>
 	);
 }
