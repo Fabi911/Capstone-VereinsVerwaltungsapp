@@ -32,7 +32,7 @@ export default function CashJournalPage() {
 	}, [cashData]);
 	if (cashData === null) {
 		return <div>
-			<h1>Kassenbuch</h1>
+			<h1>Vereinskasse</h1>
 			<StyledStack spacing={1}>
 				<Skeleton variant="text" sx={{fontSize: '3rem'}}/>
 				<Skeleton variant="rectangular" height={60}/>
@@ -49,7 +49,7 @@ export default function CashJournalPage() {
 	}
 	return (
 		<div>
-			<h1>Kassenbuch</h1>
+			<h1>Vereinskasse</h1>
 			<Link to="/cash-journal/add" style={{ color: 'inherit', textDecoration: 'none' }}>Buchung hinzufügen</Link>
 			<BookingTable cashData={cashData.filter((booking) => booking.type === 'EXPENSE')} type={"Ausgaben"}
 			              fetchCashData={fetchCashData}/>

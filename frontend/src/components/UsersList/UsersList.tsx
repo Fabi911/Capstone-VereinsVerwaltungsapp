@@ -54,8 +54,8 @@ export default function UsersList({appUser}: UsersListProps) {
 			<Table>
 				<thead>
 				<tr>
-					<th>Username</th>
-					<th>Role</th>
+					<th>Benutzername</th>
+					<th>Rolle</th>
 				</tr>
 				</thead>
 				<tbody>

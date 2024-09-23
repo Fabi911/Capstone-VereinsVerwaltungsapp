@@ -18,8 +18,8 @@ export default function Header({logout, appUser}: HeaderProps) {
 				<DrawerMenu appUser={appUser}/>
 				<h1>CommunityCore</h1>
 				{appUser?.role &&
-					<StyledLink to={"/"} onClick={logout}><LogoutIcon fontSize="large"/><br/>Ausloggen<br/>Eingeloggt
-						als: {appUser.username}</StyledLink>
+					<StyledLink to={"/"} onClick={logout}>Eingeloggt
+						als: {appUser.username}<br/><LogoutIcon fontSize="large"/><br/>Ausloggen</StyledLink>
 				}
 				{!appUser?.role && <StyledLink to={"/"}><LoginIcon fontSize="large"/><br/> Login</StyledLink>}
 

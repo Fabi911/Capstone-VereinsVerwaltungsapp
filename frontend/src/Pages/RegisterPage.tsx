@@ -1,10 +1,12 @@
 import axios from "axios";
 import {FormEvent, useState} from "react";
 import styled from "@emotion/styled";
+import {useNavigate} from "react-router-dom";
 
 export default function RegisterPage() {
 	const [username, setUsername] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
+	const navigate = useNavigate();
 
 	function register() {
 		axios.post("/api/users/register", {
@@ -20,6 +22,7 @@ export default function RegisterPage() {
 				setPassword("");
 				console.error(e)
 			});
+		navigate("/");
 	}
 
 	function handleSubmit(e: FormEvent<HTMLFormElement>) {

@@ -26,7 +26,7 @@ export default function DrawerMenu({appUser}: DrawerMenuProps) {
 						<li><LinkStyled to={"/members"}><PeopleIcon fontSize="large"/> Mitgliederübersicht</LinkStyled>
 						</li>
 						<li><LinkStyled to={"/cash-journal"}><AccountBalanceIcon
-							fontSize="large"/> Kassenbuch</LinkStyled></li>
+							fontSize="large"/> Vereinskasse</LinkStyled></li>
 					</>
 				) : null}
 			</ListStyled>
